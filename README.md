@@ -4,7 +4,7 @@
 php7.0+<br>
 
 安装<br>
-`composer require aphly/sms` <br>
+`composer require aphly/laravel` <br>
 
 返回json<br>
 app/Exceptions/Handle.php<br>
