@@ -1,0 +1,20 @@
+{
+    "name": "aphly/laravel",
+    "description": "class for laravel",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Aphly\\Laravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aphly",
+            "email": "121099327@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0"
+    }
+}
