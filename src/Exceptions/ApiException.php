@@ -33,9 +33,9 @@ class ApiException extends \Exception
         if ($request->expectsJson()) {
         }
         return response()->json([
-            'data' => $this->data,
             'code' => $this->code,
             'msg' => $this->msg,
+            'data' => $this->data,
         ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
         //return view('pages.error', ['msg' => $this->message]);
     }
