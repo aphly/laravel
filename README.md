@@ -10,3 +10,6 @@ php7.0+<br>
 修改文件 app/Exceptions/Handle.php <br>
 `use Aphly\Laravel\Exceptions\ApiException;`<br>
 `protected $dontReport = [ApiException::class];`
+
+继承FormRequest类<br>
+11000 表单验证错误
