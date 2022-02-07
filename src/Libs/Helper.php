@@ -19,4 +19,46 @@ class Helper
             return false;
         }
     }
+
+    static function findAllFiles($dir,$type='curr'): array{
+        $root = scandir($dir);
+        $result = [];
+        foreach($root as $value){
+            if($value === '.' || $value === '..'){
+                continue;
+            }
+            if(is_file("$dir/$value")){
+                if($type=='curr'){
+                    $result[] = $value;
+                //}else{
+                    //$curr_dir = str_replace($cdir,'',$dir);
+                    //$result[] = "$value";
+                }
+                continue;
+            }else{
+                if($type!='curr'){
+                    foreach(self::findAllFiles("$dir/$value",$type) as $v){
+                        $result[] = "$value/$v";
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
+    static function getTree($array): array{
+        $new_array = [];
+        foreach($array as $v){
+            $new_array[$v['id']] = $v;
+        }
+        $return_tree = [];
+        foreach($new_array as $kk=>$vv){
+            if(isset($new_array[$vv['pid']])){
+                $new_array[$vv['pid']]['child'][] = &$new_array[$kk];
+            }else{
+                $return_tree[] = &$new_array[$kk];
+            }
+        }
+        return $return_tree;
+    }
 }
