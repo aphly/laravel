@@ -61,4 +61,18 @@ class Helper
         }
         return $return_tree;
     }
+
+    static function getArrParent($array,$str,$deep=0){
+        $return = [];
+        $deep++;
+        foreach ($array as $key=>$value){
+            if(is_array($value)){
+                self::getArrParent($value,$str,$deep);
+            }else{
+                if($value==$str){
+                   return $return[$deep] = $key;
+                }
+            }
+        }
+    }
 }
