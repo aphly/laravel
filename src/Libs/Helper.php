@@ -62,17 +62,21 @@ class Helper
         return $return_tree;
     }
 
-    static function getArrParent($array,$str,$deep=0){
-        $return = [];
-        $deep++;
-        foreach ($array as $key=>$value){
-            if(is_array($value)){
-                self::getArrParent($value,$str,$deep);
-            }else{
-                if($value==$str){
-                   return $return[$deep] = $key;
+    static function getParentByPid($arr,$pid){
+        $res = [];
+        self::_getParentByPid($arr,$pid,$res);
+        return array_reverse($res);
+    }
+
+    static function _getParentByPid($arr,$pid,&$return){
+        foreach ($arr as $key => $value){
+            if($value['id']==$pid){
+                $return[]=['id'=>$value['id'],'name'=>$value['name']];
+                if(intval($value['pid'])){
+                    self::_getParentByPid($arr,$value['pid'],$return);
                 }
             }
         }
     }
+
 }
