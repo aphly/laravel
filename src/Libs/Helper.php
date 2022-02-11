@@ -20,6 +20,11 @@ class Helper
         }
     }
 
+    static function uuid()
+    {
+        return md5(uniqid(mt_rand(), true));
+    }
+
     static function findAllFiles($dir,$type='curr'): array{
         $root = scandir($dir);
         $result = [];

@@ -20,9 +20,24 @@ class FormRequest extends baseRequest
         ];
     }
 
+    public function validate($arr)
+    {
+        $validator = \Illuminate\Support\Facades\Validator::make($arr,$this->rules(),$this->messages());
+        if ($validator->fails()) {
+            $this->fail($validator);
+        }
+    }
+
     protected function failedValidation(Validator $validator)
     {
-        $message = $validator->errors()->all();
-        throw new ApiException(['code'=>11000,'msg'=>'表单验证错误','data'=>$message]);
+        //if ($this->wantsJson() || $this->ajax()) {
+            $this->fail($validator);
+        //} else {
+            //parent::failedValidation($validator);
+        //}
+    }
+
+    public function fail($validator){
+        throw new ApiException(['code'=>11000,'msg'=>'表单验证错误','data'=>$validator->errors()->all()]);
     }
 }
