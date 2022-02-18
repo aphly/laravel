@@ -8,10 +8,12 @@ use Illuminate\Contracts\Validation\Validator;
 
 class FormRequest extends baseRequest
 {
+
     public function authorize()
     {
         return true;
     }
+
 
     public function rules()
     {
