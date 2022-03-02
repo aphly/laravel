@@ -1,7 +1,7 @@
 **laravel Class库**<br>
 
 环境<br>
-php7.0+<br>
+php7.3+<br>
 
 安装<br>
 `composer require aphly/laravel` <br>
