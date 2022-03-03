@@ -83,6 +83,15 @@ class Helper
         }
     }
 
+    static function TreeToArr($tree,&$res){
+        foreach ($tree as $v) {
+            $res[] = $v;
+            if (isset($v['child'])) {
+                self::TreeToArr($v['child'], $res);
+            }
+        }
+    }
+
     static function getParentByPid($arr,$pid){
         $res = [];
         self::_getParentByPid($arr,$pid,$res);

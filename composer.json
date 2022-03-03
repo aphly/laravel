@@ -16,5 +16,12 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aphly\\Laravel\\InitServiceProvider"
+            ]
+        }
     }
 }
