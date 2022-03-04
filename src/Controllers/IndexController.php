@@ -7,22 +7,16 @@ use Aphly\Laravel\Libs\Helper;
 use Aphly\Laravel\Models\User;
 use Aphly\Laravel\Models\UserAuth;
 use Aphly\Laravel\Requests\LoginRequest;
+use Aphly\Laravel\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
 
-    public function layout()
-    {
-        $res['title']='我的';
-        $res['user'] = Auth::guard('user')->user();
-        return $this->makeView('laravel::common.layout',['res'=>$res]);
-    }
-
-    public function index()
+    public function index(Request $request)
     {
         $res['title']='我的';
         return $this->makeView('laravel::index.index',['res'=>$res]);
@@ -31,38 +25,63 @@ class IndexController extends Controller
     public function login(loginRequest $request)
     {
         if($request->isMethod('post')) {
-            $credentials = $request->only('username', 'password');
-            $credentials['status']=1;
-            if (Auth::guard('user')->attempt($credentials)) {
-                throw new ApiException(['code'=>0,'msg'=>'登录成功','data'=>['redirect'=>'/index','user'=>Auth::guard('user')->user()->toArray()]]);
+            $arr['identifier'] = $request->input('identifier');
+            $arr['identity_type'] = config('laravel.identity_type');
+            $userAuth = UserAuth::where($arr)->first();
+            if($userAuth){
+                $key = 'user_'.$request->ip();
+                if($this->limiter($key,5)){
+                    if(Hash::check($request->input('credential',''),$userAuth->credential)){
+                        $user = User::find($userAuth->uuid);
+                        if($user->status==1){
+                            Auth::guard('user')->login($user);
+                            $userAuth->last_login = time();
+                            $userAuth->last_ip = $request->ip();
+                            $userAuth->save();
+                            $user->token = Str::random(64);
+                            $user->token_expire = time()+120*60;
+                            $user->save();
+                            throw new ApiException(['code'=>0,'msg'=>'登录成功','data'=>['redirect'=>'/index','user'=>$user->toArray()]]);
+                        }else{
+                            throw new ApiException(['code'=>3,'msg'=>'账号被冻结','data'=>['redirect'=>'/index']]);
+                        }
+                    }else{
+                        $this->limiterIncrement($key,15*60);
+                    }
+                }else{
+                    throw new ApiException(['code'=>2,'msg'=>'错误次数太多，被锁定15分钟','data'=>['redirect'=>'/index']]);
+                }
             }
+            throw new ApiException(['code'=>1,'msg'=>'邮箱或密码错误','data'=>['redirect'=>'/index']]);
         }else{
             $res=['title'=>'后台登录'];
             return $this->makeView('laravel::index.login',['res'=>$res]);
         }
     }
 
-    public function register(loginRequest $request)
+    public function register(RegisterRequest $request)
     {
-        if(config('laravel.identity_type')=='email'){
-            if($request->isMethod('post')) {
-                $post = $request->all();
-                $post['identity_type'] = 'email';
-                $post['uuid'] = Helper::uuid();
-                $post['credential'] = Hash::make($post['credential']);
-                $user = UserAuth::create($post);
-                if($user->id){
-                    Auth::guard('user')->login($user);
-                    throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>'/','user'=>Auth::guard('user')->user()->toArray()]]);
-                }else{
-                    throw new ApiException(['code'=>1,'msg'=>'添加失败']);
-                }
+        if($request->isMethod('post')) {
+            $post = $request->all();
+            $post['identity_type'] = config('laravel.identity_type');
+            $post['uuid'] = Helper::uuid();
+            $post['credential'] = Hash::make($post['credential']);
+            $post['last_login'] = time();
+            $post['last_ip'] = $request->ip();
+            $userAuth = UserAuth::create($post);
+            if($userAuth->id){
+                $arr['token'] = $arr['uuid'] = $userAuth->uuid;
+                $arr['token_expire'] = time();
+                $user = User::create($arr);
+                Auth::guard('user')->login($user);
+                throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>'/index','user'=>$user->toArray()]]);
             }else{
-                $res=['title'=>'后台登录'];
-                return $this->makeView('laravel::index.register',['res'=>$res]);
+                throw new ApiException(['code'=>1,'msg'=>'添加失败']);
             }
+        }else{
+            $res=['title'=>'后台登录'];
+            return $this->makeView('laravel::index.register',['res'=>$res]);
         }
-
     }
 
     public function logout(Request $request)

@@ -10,7 +10,7 @@ class UserAuth
 {
     public function handle(Request $request, Closure $next)
     {
-        if($request->path()=='login'){
+        if($request->path()=='login' || $request->path()=='register'){
             if (Auth::guard('user')->check()) {
                 return redirect('/index');
             }else{

@@ -69,6 +69,7 @@ $(function (){
                     data: form.serialize(),
                     dataType: "json",
                     success: function(res){
+                        console.log(res);
                         $('#login input.form-control').addClass('is-valid');
                         if(!res.code) {
                             location.href = res.data.redirect

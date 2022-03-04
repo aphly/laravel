@@ -1,5 +1,5 @@
 @include('laravel::common.header')
-<link rel="stylesheet" href="{{ URL::asset('vendor/laravel-admin/css/login.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('vendor/laravel/css/login.css') }}">
 <section class="login d-flex" >
     <div class="login1">
         <span>
@@ -7,7 +7,7 @@
         </span>
     </div>
     <div class="login2">
-        <form method="post" action="/admin/login" id="login" class="login_form">
+        <form method="post" action="/login" id="login" class="login_form">
             @csrf
             <div class="login_title">
                 <span class="text-center">后台登录</span>
@@ -16,15 +16,15 @@
                 登录
                 <span style="font-size:16px">
                     没有帐号?
-                    <a href="">注册</a>
+                    <a href="/register">注册</a>
                 </span>
             </h3>
             <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="用户名" value="">
+                <input type="text" name="identifier" class="form-control" placeholder="邮箱" value="">
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control " placeholder="密码" value="">
+                <input type="password" name="credential" class="form-control " placeholder="密码" value="">
                 <div class="invalid-feedback"></div>
             </div>
 
@@ -53,49 +53,50 @@
 
 </section>
 <script>
-$(function (){
-    $("#login").submit(function (event){
-        event.preventDefault()
-        event.stopPropagation()
-        const form = $(this)
-        if(form[0].checkValidity()===false){
-        }else{
-            let url = form.attr("action");
-            let type = form.attr("method");
-            if(url && type){
-                $('#login input.form-control').removeClass('is-valid').removeClass('is-invalid');
-                $.ajax({
-                    type,url,
-                    data: form.serialize(),
-                    dataType: "json",
-                    success: function(res){
-                        $('#login input.form-control').addClass('is-valid');
-                        if(!res.code) {
-                            location.href = res.data.redirect
-                        }else if(res.code===11000){
-                            for(var item in res.data){
-                                let str = ''
-                                res.data[item].forEach((elem, index)=>{
-                                    str = str+elem+'<br>'
-                                })
-                                let obj = $('#login input[name="'+item+'"]');
-                                obj.removeClass('is-valid').addClass('is-invalid');
-                                obj.next('.invalid-feedback').html(str);
-                            }
-                        }else{
-                            $("#msg").text(res.msg).removeClass('d-none');
-                        }
-                    },
-                    complete:function(XMLHttpRequest,textStatus){
-                        //console.log(XMLHttpRequest,textStatus)
-                    }
-                })
+    $(function (){
+        $("#login").submit(function (event){
+            event.preventDefault()
+            event.stopPropagation()
+            const form = $(this)
+            if(form[0].checkValidity()===false){
             }else{
-                console.log('no action')
+                let url = form.attr("action");
+                let type = form.attr("method");
+                if(url && type){
+                    $('#login input.form-control').removeClass('is-valid').removeClass('is-invalid');
+                    $.ajax({
+                        type,url,
+                        data: form.serialize(),
+                        dataType: "json",
+                        success: function(res){
+                            console.log(res);
+                            $('#login input.form-control').addClass('is-valid');
+                            if(!res.code) {
+                                location.href = res.data.redirect
+                            }else if(res.code===11000){
+                                for(var item in res.data){
+                                    let str = ''
+                                    res.data[item].forEach((elem, index)=>{
+                                        str = str+elem+'<br>'
+                                    })
+                                    let obj = $('#login input[name="'+item+'"]');
+                                    obj.removeClass('is-valid').addClass('is-invalid');
+                                    obj.next('.invalid-feedback').html(str);
+                                }
+                            }else{
+                                $("#msg").text(res.msg).removeClass('d-none');
+                            }
+                        },
+                        complete:function(XMLHttpRequest,textStatus){
+                            //console.log(XMLHttpRequest,textStatus)
+                        }
+                    })
+                }else{
+                    console.log('no action')
+                }
             }
-        }
 
-    })
-});
+        })
+    });
 </script>
 @include('laravel::common.footer')

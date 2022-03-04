@@ -10,7 +10,6 @@ class UserAuth extends Model
 {
     use HasFactory;
     protected $table = 'user_auth';
-    public $timestamps = false;
     protected $fillable = [
         'uuid','identity_type','identifier','credential',
     ];
@@ -19,14 +18,14 @@ class UserAuth extends Model
 
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function (UserAuth $user) {
-            $post['uuid'] = $post['token'] = $user->uuid;
-            $post['token_expire'] = time();
-            User::create($post);
-        });
-
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//        static::created(function (UserAuth $user) {
+//            $post['uuid'] = $post['token'] = $user->uuid;
+//            $post['token_expire'] = time();
+//            User::create($post);
+//        });
+//
+//    }
 }

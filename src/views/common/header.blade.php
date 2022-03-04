@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{config('admin.name')}}</title>
+    <title>{{config('laravel.name')}}</title>
     <link rel="stylesheet" href="{{ URL::asset('vendor/laravel/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('vendor/laravel/css/c.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('vendor/laravel/css/iconfont.css') }}">
