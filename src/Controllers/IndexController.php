@@ -8,8 +8,10 @@ use Aphly\Laravel\Models\User;
 use Aphly\Laravel\Models\UserAuth;
 use Aphly\Laravel\Requests\LoginRequest;
 use Aphly\Laravel\Requests\RegisterRequest;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -19,7 +21,22 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $res['title']='我的';
+        $res['user'] = Auth::guard('user')->user();
         return $this->makeView('laravel::index.index',['res'=>$res]);
+    }
+
+    public function autoLogin(Request $request)
+    {
+        try {
+            $decrypted = Crypt::decryptString($request->token);
+            $user = User::where('token',$decrypted)->first();
+            if($user){
+                Auth::guard('user')->login($user);
+                return redirect('/index');
+            }
+        } catch (DecryptException $e) {
+            throw new ApiException(['code'=>1,'msg'=>'Token错误','data'=>['redirect'=>'/index']]);
+        }
     }
 
     public function login(loginRequest $request)
@@ -86,9 +103,9 @@ class IndexController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::guard('user')->logout();
+//        $request->session()->invalidate();
+//        $request->session()->regenerateToken();
         throw new ApiException(['code'=>0,'msg'=>'成功退出','data'=>['redirect'=>'/login']]);
     }
 

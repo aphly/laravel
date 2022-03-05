@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/index', 'Aphly\Laravel\Controllers\IndexController@index');
+
 
 Route::middleware(['web'])->group(function () {
+    Route::get('/index', 'Aphly\Laravel\Controllers\IndexController@index');
+
+    Route::match(['get'],'/autologin/{token}', 'Aphly\Laravel\Controllers\IndexController@autoLogin');
 
     Route::middleware(['userAuth'])->group(function () {
         Route::match(['get', 'post'],'/register', 'Aphly\Laravel\Controllers\IndexController@register');
