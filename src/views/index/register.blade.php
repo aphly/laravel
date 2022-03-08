@@ -10,13 +10,13 @@
         <form method="post" action="/register" id="login" class="login_form">
             @csrf
             <div class="login_title">
-                <span class="text-center">后台登录</span>
+                <span class="text-center">欢迎注册</span>
             </div>
             <h3 class="" style="">
-                登录
+                注册
                 <span style="font-size:16px">
-                    没有帐号?
-                    <a href="">注册</a>
+                    已有帐号?
+                    <a href="/login">登录</a>
                 </span>
             </h3>
             <div class="form-group">

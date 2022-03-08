@@ -10,7 +10,7 @@
         <form method="post" action="/login" id="login" class="login_form">
             @csrf
             <div class="login_title">
-                <span class="text-center">后台登录</span>
+                <span class="text-center">欢迎登录</span>
             </div>
             <h3 class="" style="">
                 登录

@@ -85,9 +85,13 @@ class Helper
 
     static function TreeToArr($tree,&$res){
         foreach ($tree as $v) {
-            $res[] = $v;
             if (isset($v['child'])) {
-                self::TreeToArr($v['child'], $res);
+                $next = $v['child'];
+                unset($v['child']);
+                $res[] = $v;
+                self::TreeToArr($next, $res);
+            }else{
+                $res[] = $v;
             }
         }
     }

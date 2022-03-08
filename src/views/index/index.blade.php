@@ -6,6 +6,9 @@
     你好
     @if($res['user'])
         {{$res['user']->nickname}}
+        <a href="/logout">注销</a>
     @endif
+
+
 </div>
 @include('laravel::common.footer')

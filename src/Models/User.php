@@ -5,10 +5,7 @@ namespace Aphly\Laravel\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -17,6 +14,9 @@ class User extends Authenticatable
     protected $primaryKey = 'uuid';
     protected $keyType = 'string';
     public $incrementing = false;
+
+    const SET_ROLE_ID = 4;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -67,4 +67,18 @@ class User extends Authenticatable
         return $this->hasMany(UserAuth::class,'uuid');
     }
 
+    static public function getStatus($status)
+    {
+        if($status==1){
+            return '正常';
+        }else if($status==2){
+            return '冻结';
+        }
+    }
+
+    static public function delAvatar($avatar) {
+        if($avatar){
+            Storage::delete($avatar);
+        }
+    }
 }

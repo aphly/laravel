@@ -5,6 +5,7 @@ namespace Aphly\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class UserAuth extends Model
 {
@@ -14,9 +15,13 @@ class UserAuth extends Model
         'uuid','identity_type','identifier','credential',
     ];
 
-    function check(){
-
+    function changePassword($uuid,$password){
+        $credential = Hash::make($password);
+        $this->where(['identity_type'=>'username','uuid'=>$uuid])->update(['credential'=>$credential]);
+        $this->where(['identity_type'=>'mobile','uuid'=>$uuid])->update(['credential'=>$credential]);
+        $this->where(['identity_type'=>'email','uuid'=>$uuid])->update(['credential'=>$credential]);
     }
+
 
 //    protected static function boot()
 //    {

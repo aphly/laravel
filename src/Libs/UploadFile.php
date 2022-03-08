@@ -18,10 +18,14 @@ class UploadFile
 //        }
 //    }
 
-    function upload($file,$path){
+    static function upload($file,$path){
         if ($file->isValid()) {
             $ext = $file->extension();
-            $allow_ext= ['png','jpg','jpeg'];
+            $size = $file->getSize();
+            if($size/1024/1024 > 5){
+                throw new ApiException(['code'=>701,'data'=>'','msg'=>'图片大小超过 5M']);
+            }
+            $allow_ext= ['png','jpg','jpeg','gif'];
             if(!in_array($ext,$allow_ext)){
                 throw new ApiException(['code'=>700,'data'=>'','msg'=>'格式不支持']);
             }

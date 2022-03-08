@@ -87,8 +87,10 @@ class IndexController extends Controller
             $post['last_ip'] = $request->ip();
             $userAuth = UserAuth::create($post);
             if($userAuth->id){
+                $arr['nickname'] = str::random(8);
                 $arr['token'] = $arr['uuid'] = $userAuth->uuid;
                 $arr['token_expire'] = time();
+                $arr['role_id'] = User::SET_ROLE_ID;
                 $user = User::create($arr);
                 Auth::guard('user')->login($user);
                 throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>'/index','user'=>$user->toArray()]]);
@@ -104,8 +106,6 @@ class IndexController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('user')->logout();
-//        $request->session()->invalidate();
-//        $request->session()->regenerateToken();
         throw new ApiException(['code'=>0,'msg'=>'成功退出','data'=>['redirect'=>'/login']]);
     }
 
