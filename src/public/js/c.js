@@ -101,6 +101,21 @@ function toTree(data) {
     return result;
 }
 
+function treeData(data,select_ids=0) {
+    let new_array = []
+    data.forEach((item,index) => {
+        let selectable = item.is_leaf?true:false;
+        if(select_ids){
+            let selected=in_array(item.id,select_ids)?true:false;
+            new_array.push({id:item.id,text:item.name,pid:item.pid,state:{selected},selectable})
+        }else{
+            new_array.push({id:item.id,text:item.name,pid:item.pid,selectable})
+        }
+        delete item.nodes;
+    });
+    return new_array;
+}
+
 function in_array(search,array){
     for(var i in array){
         if(array[i]==search){

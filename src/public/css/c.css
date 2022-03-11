@@ -31,5 +31,5 @@ ul,li{padding: 0;margin: 0;}
 
 .pagination {height: 44px;position: relative; }
 .pagination .page-item{margin: 0 2px;padding: 0 4px;}
-.page-item.active .page-link {background-color: #ff8a65;border: #ff8a65 1px solid;}
+/*.page-item.active .page-link {background-color: #ff8a65;border: #ff8a65 1px solid;}*/
 .page-link{ color: #333;border-radius: 4px;padding: .3rem .6rem;}
