@@ -10,7 +10,7 @@ class Dictionary extends Model
     use HasFactory;
     protected $table = 'dictionary';
     protected $fillable = [
-        'key','name','value','sort',
+        'key','sort','pid','status','is_leaf','json'
     ];
 
 
