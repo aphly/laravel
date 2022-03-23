@@ -9,8 +9,9 @@ class Dictionary extends Model
 {
     use HasFactory;
     protected $table = 'dictionary';
+    public $timestamps = false;
     protected $fillable = [
-        'key','sort','pid','status','is_leaf','json'
+        'name','sort','pid','status','is_leaf','json','icon'
     ];
 
 

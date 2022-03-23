@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('dictionary', function (Blueprint $table) {
             $table->id();
-            $table->string('key',64)->index();
+            $table->string('name',64)->index();
             $table->integer('sort')->unique()->index();
             $table->integer('pid')->unique()->index();
             $table->tinyInteger('status')->default(1)->comment('1:正常;')->index();
             $table->tinyInteger('is_leaf')->default(1)->index();
+            $table->string('icon',255)->nullable();
             $table->json('json')->nullable();
         });
     }

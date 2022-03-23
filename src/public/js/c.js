@@ -22,25 +22,53 @@ function _autosize(ele){
 
 var urlOption={
     '_set':function (name,val,jump=false) {
+        //str
+        let res = ''
         let thisURL = String(document.location);
-        if(thisURL.indexOf(name+'=') > 0){
-            let v = this._get(name);
-            if(v != null) {
-                thisURL = thisURL.replace(name + '=' + v, name + '=' + val);
+        let url_arr = thisURL.split('?');
+        if(url_arr[1]){
+            if(url_arr[1].indexOf(name+'=') !== -1){
+                let url_arr_p = url_arr[1].split('&');
+                let arr = [];
+                url_arr_p.forEach(i=>{
+                    if(i.indexOf(name+'=') !== -1){
+                        arr.push(name+'='+val)
+                    }else{
+                        arr.push(i)
+                    }
+                })
+                let url_p = arr.join('&');
+                res = url_arr[0]+'?'+url_p;
             }else{
-                thisURL = thisURL.replace(name + '=', name + '=' + val);
+                res = url_arr[0]+'?'+url_arr[1]+'&'+name+'='+val;
             }
         }else{
-            if(thisURL.indexOf("?") > 0){
-                thisURL = thisURL + "&" + name + "=" + val;
-            }else {
-                thisURL = thisURL + "?" + name + "=" + val;
-            }
+            res = url_arr[0]+'?'+name+'='+val;
         }
         if(jump){
-            location.href = thisURL;
+            location.href = res;
         }else{
-            return thisURL;
+            return res;
+        }
+    },
+    '__set':function (str,jump=false) {
+        //arr
+        let res = ''
+        let thisURL = String(document.location);
+        let url_arr = thisURL.split('?');
+        if(url_arr[1]){
+            let url_arr_p = url_arr[1].split('&');
+            url_arr_p.push(str);
+            let arr = [...new Set(url_arr_p)];
+            let url_p = arr.join('&');
+            res = url_arr[0]+'?'+url_p;
+        }else{
+            res = url_arr[0]+'?'+str;
+        }
+        if(jump){
+            location.href = res;
+        }else{
+            return res;
         }
     },
     '_get':function (name) {
@@ -49,31 +77,50 @@ var urlOption={
         if(r!=null)return  unescape(r[2]); return null;
     },
     '_del':function (name) {
+        //str
+        let res = ''
         let thisURL = String(document.location);
-        if (thisURL.indexOf(name+'=') > 0){
-            let arr_url = thisURL.split('?');
-            let base = arr_url[0];
-            let arr_param = arr_url[1].split('&');
-            let index = -1;
-            for (let i = 0; i < arr_param.length; i++) {
-                let paired = arr_param[i].split('=');
-                if (paired[0] === name) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index === -1) {
-                return thisURL;
+        let url_arr = thisURL.split('?');
+        if(url_arr[1]){
+            if(url_arr[1].indexOf(name+'=') !== -1){
+                let url_arr_p = url_arr[1].split('&');
+                let arr = [];
+                url_arr_p.forEach(i=>{
+                    if(i.indexOf(name+'=') !== -1){
+                    }else{
+                        arr.push(i)
+                    }
+                })
+                let url_p = arr.join('&');
+                res = url_arr[0]+'?'+url_p;
             }else{
-                arr_param.splice(index, 1);
-                if(arr_param.length){
-                    return base + "?" + arr_param.join('&');
-                }else{
-                    return base ;
-                }
+                res = url_arr[0]+'?'+url_arr[1];
             }
         }else{
-            return thisURL;
+            res = url_arr[0];
+        }
+        if(jump){
+            location.href = res;
+        }else{
+            return res;
+        }
+    },
+    '__del':function (str,jump=false) {
+        let res = ''
+        let thisURL = String(document.location);
+        let url_arr = thisURL.split('?');
+        if(url_arr[1]){
+            let url_arr_p = url_arr[1].split('&');
+            let arr =  url_arr_p.filter(item=>{
+                return item!=str
+            })
+            let url_p = arr.join('&');
+            res = url_arr[0]+'?'+url_p;
+        }
+        if(jump){
+            location.href = res;
+        }else{
+            return res;
         }
     }
 }
@@ -123,4 +170,19 @@ function in_array(search,array){
         }
     }
     return false;
+}
+
+function randomId(n,all=false) {
+    let str;
+    if(all){
+        str = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    }else{
+        str = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    }
+    let res = '';
+    for (let i = 0; i < n; i++) {
+        let id = Math.ceil(Math.random() * (str.length-1));
+        res += str[id];
+    }
+    return res;
 }

@@ -12,6 +12,8 @@ class Helper
         }
     }
 
+
+
     static function is_phone($mobile){
         if(preg_match("/^1\d{10}$/", $mobile)){
             return true;
