@@ -21,6 +21,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1)->comment('1:正常;')->index();
             $table->tinyInteger('is_leaf')->default(1)->index();
             $table->string('icon',255)->nullable();
+            $table->string('value',255)->nullable();
             $table->json('json')->nullable();
         });
     }

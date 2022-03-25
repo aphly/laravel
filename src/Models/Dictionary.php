@@ -13,7 +13,7 @@ class Dictionary extends Model
     protected $table = 'dictionary';
     public $timestamps = false;
     protected $fillable = [
-        'name','sort','pid','status','is_leaf','json','icon'
+        'name','sort','pid','status','is_leaf','json','icon','value'
     ];
 
     public function getMenuById($id)

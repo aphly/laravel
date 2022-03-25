@@ -8,11 +8,11 @@ class Form
         $html = '';
         foreach($arr as $k=>$v){
             if($v==$nv){
-                $html.= '<div class="form-check"><input checked="checked" class="form-check-input" type="radio" name="'.$name.'" id="'.$name.$v.'" value="'.$v.'">'
-                    .'<label class="form-check-label" for="'.$name.$v.'" >'.$k.'</label></div>';
+                $html.= '<div class="form-check"><label class="form-check-label" ><input checked="checked" class="form-check-input" type="radio" name="'.$name.'" value="'.$v['value'].'">'
+                    .$v['name'].'</label></div>';
             }else{
-                $html.= '<div class="form-check"><input class="form-check-input" type="radio" name="'.$name.'" id="'.$name.$v.'" value="'.$v.'">'
-                    .'<label class="form-check-label" for="'.$name.$v.'">'.$k.'</label></div>';
+                $html.= '<div class="form-check"><label class="form-check-label" ><input class="form-check-input" type="radio" name="'.$name.'" value="'.$v['value'].'">'
+                    .$v['name'].'</label></div>';
             }
         }
         return $html;
@@ -22,12 +22,12 @@ class Form
         $html = '';
         $nv = explode(',',$nv);
         foreach($arr as $k=>$v){
-            if($nv && in_array($v,$nv)){
-                $html.= '<div class="form-check"><input checked="checked" class="form-check-input" type="checkbox" name="'.$name.'[]" id="'.$name.$v.'" value="'.$v.'">'
-                        .'<label class="form-check-label" for="'.$name.$v.'" >'.$k.'</label></div>';
+            if($nv && in_array($v['value'],$nv)){
+                $html.= '<div class="form-check"><label class="form-check-label" ><input checked="checked" class="form-check-input" type="checkbox" name="'.$name.'[]" value="'.$v['value'].'">'
+                        .$v['name'].'</label></div>';
             }else{
-                $html.= '<div class="form-check"><input class="form-check-input" type="checkbox" name="'.$name.'[]" id="'.$name.$v.'" value="'.$v.'">'
-                    .'<label class="form-check-label" for="'.$name.$v.'">'.$k.'</label></div>';
+                $html.= '<div class="form-check"><label class="form-check-label" ><input class="form-check-input" type="checkbox" name="'.$name.'[]" value="'.$v['value'].'">'
+                    .$v['name'].'</label></div>';
             }
         }
         return $html;
@@ -35,9 +35,9 @@ class Form
 
     static function select($name,$nv,array $arr,string $id='') {
         if($id){
-            $html= '<select class="form-control" name="'.$$name.'" id="'.$id.'">';
+            $html= '<select class="form-control" name="'.$name.'" id="'.$id.'">';
         }else{
-            $html= '<select class="form-control" name="'.$$name.'">';
+            $html= '<select class="form-control" name="'.$name.'">';
         }
         foreach($arr as $k=>$v){
             if($v==$nv){
