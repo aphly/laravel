@@ -34,8 +34,8 @@ class Dictionary extends Model
                 if($val['json']){
                     $arr = json_decode($val['json'], true);
                     $new_arr = [];
-                    foreach ($arr as $v) {
-                        $new_arr[$v['group']][] = $v;
+                    foreach ($arr as $k=>$v) {
+                        $new_arr[$v['group']][$k] = $v;
                     }
                     $res['dictionary'][$key]['json'] = $new_arr;
                 }
