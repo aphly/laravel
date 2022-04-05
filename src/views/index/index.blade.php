@@ -5,7 +5,7 @@
 <div>
     你好
     @if($res['user'])
-        {{$res['user']->nickname}}
+        {{$res['user']['nickname']}}
         <a href="/logout">注销</a>
     @endif
 

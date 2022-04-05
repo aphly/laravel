@@ -27,4 +27,7 @@ Route::middleware(['web'])->group(function () {
         Route::get('/logout', 'Aphly\Laravel\Controllers\IndexController@logout');
     });
 
+    Route::get('/home', function () {
+        dd('ss');
+    });
 });

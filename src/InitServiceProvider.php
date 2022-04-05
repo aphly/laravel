@@ -2,6 +2,7 @@
 
 namespace Aphly\Laravel;
 
+use Aphly\Laravel\Middleware\Common;
 use Aphly\Laravel\Middleware\UserAuth;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,6 +36,7 @@ class InitServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/views', 'laravel');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->addMiddlewareAlias('userAuth', UserAuth::class);
+        $this->addMiddlewareAlias('cookie', Common::class);
     }
 
     protected function addMiddlewareAlias($name, $class)

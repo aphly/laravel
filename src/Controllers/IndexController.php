@@ -11,6 +11,7 @@ use Aphly\Laravel\Requests\RegisterRequest;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -20,8 +21,9 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
+
         $res['title']='我的';
-        $res['user'] = Auth::guard('user')->user();
+        $res['user'] = session('user');
         return $this->makeView('laravel::index.index',['res'=>$res]);
     }
 
@@ -58,7 +60,11 @@ class IndexController extends Controller
                             $user->token = Str::random(64);
                             $user->token_expire = time()+120*60;
                             $user->save();
-                            throw new ApiException(['code'=>0,'msg'=>'登录成功','data'=>['redirect'=>'/index','user'=>$user->toArray()]]);
+                            $user_arr = $user->toArray();
+                            session(['user'=>$user_arr]);
+                            $redirect = Cookie::get('refer');
+                            $redirect = $redirect??'/index';
+                            throw new ApiException(['code'=>0,'msg'=>'登录成功','data'=>['redirect'=>$redirect,'user'=>$user_arr]]);
                         }else{
                             throw new ApiException(['code'=>3,'msg'=>'账号被冻结','data'=>['redirect'=>'/index']]);
                         }
@@ -93,7 +99,11 @@ class IndexController extends Controller
                 $arr['role_id'] = User::SET_ROLE_ID;
                 $user = User::create($arr);
                 Auth::guard('user')->login($user);
-                throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>'/index','user'=>$user->toArray()]]);
+                $user_arr = $user->toArray();
+                session('user', $user_arr);
+                $redirect = Cookie::get('refer');
+                $redirect = $redirect??'/index';
+                throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$redirect,'user'=>$user_arr]]);
             }else{
                 throw new ApiException(['code'=>1,'msg'=>'添加失败']);
             }
@@ -105,6 +115,7 @@ class IndexController extends Controller
 
     public function logout(Request $request)
     {
+        session()->forget('user');
         Auth::guard('user')->logout();
         throw new ApiException(['code'=>0,'msg'=>'成功退出','data'=>['redirect'=>'/login']]);
     }
