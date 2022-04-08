@@ -16,9 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['web'])->group(function () {
+    Route::get('/userauth/{id}/verify/{token}', 'Aphly\Laravel\Controllers\IndexController@mailVerify');
+    Route::match(['post'],'/email/verifysend', 'Aphly\Laravel\Controllers\IndexController@mailVerifySend');
+    Route::match(['get', 'post'],'/userauth/{id}/password/{token}', 'Aphly\Laravel\Controllers\IndexController@password');
+
     Route::get('/index', 'Aphly\Laravel\Controllers\IndexController@index');
 
     Route::match(['get'],'/autologin/{token}', 'Aphly\Laravel\Controllers\IndexController@autoLogin');
+
+    Route::match(['get', 'post'],'/forget', 'Aphly\Laravel\Controllers\IndexController@forget');
 
     Route::middleware(['userAuth'])->group(function () {
         Route::match(['get', 'post'],'/register', 'Aphly\Laravel\Controllers\IndexController@register');
@@ -27,7 +33,4 @@ Route::middleware(['web'])->group(function () {
         Route::get('/logout', 'Aphly\Laravel\Controllers\IndexController@logout');
     });
 
-    Route::get('/home', function () {
-        dd('ss');
-    });
 });

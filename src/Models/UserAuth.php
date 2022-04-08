@@ -12,7 +12,7 @@ class UserAuth extends Model
     use HasFactory;
     protected $table = 'user_auth';
     protected $fillable = [
-        'uuid','identity_type','identifier','credential',
+        'uuid','identity_type','identifier','credential','token'
     ];
 
     function changePassword($uuid,$password){
@@ -20,6 +20,7 @@ class UserAuth extends Model
         $this->where(['identity_type'=>'username','uuid'=>$uuid])->update(['credential'=>$credential]);
         $this->where(['identity_type'=>'mobile','uuid'=>$uuid])->update(['credential'=>$credential]);
         $this->where(['identity_type'=>'email','uuid'=>$uuid])->update(['credential'=>$credential]);
+        return true;
     }
 
 

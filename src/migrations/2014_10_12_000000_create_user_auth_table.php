@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_auth', function (Blueprint $table) {
             $table->id();
-            $table->char('uuid',32);
+            $table->char('uuid',32)->index();
             $table->char('identity_type',16);
             $table->string('identifier',128);
             $table->string('credential',255);
@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('last_login')->unsigned()->nullable();
             $table->string('last_ip',64)->nullable();
             $table->unique(['identity_type','identifier']);
-            $table->index('uuid');
             $table->timestamps();
         });
     }

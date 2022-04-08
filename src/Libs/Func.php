@@ -19,4 +19,20 @@ class Func
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
     }
+
+    static function randStr($length){
+        $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $len = strlen($str)-1;
+        $randstr = '';
+        for ($i=0;$i<$length;$i++) {
+            $num=mt_rand(0,$len);
+            $randstr .= $str[$num];
+        }
+        return $randstr;
+    }
+
+    static function siteUrl($url){
+        preg_match('/^(http(s)?:\/\/.+?)\//',$url,$matches);
+        return $matches[1] ?? '';
+    }
 }

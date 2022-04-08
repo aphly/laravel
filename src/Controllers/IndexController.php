@@ -4,6 +4,8 @@ namespace Aphly\Laravel\Controllers;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Helper;
+use Aphly\Laravel\Mail\Forget;
+use Aphly\Laravel\Mail\Verify;
 use Aphly\Laravel\Models\User;
 use Aphly\Laravel\Models\UserAuth;
 use Aphly\Laravel\Requests\LoginRequest;
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class IndexController extends Controller
@@ -21,7 +25,6 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-
         $res['title']='我的';
         $res['user'] = session('user');
         return $this->makeView('laravel::index.index',['res'=>$res]);
@@ -100,9 +103,12 @@ class IndexController extends Controller
                 $user = User::create($arr);
                 Auth::guard('user')->login($user);
                 $user_arr = $user->toArray();
-                session('user', $user_arr);
+                session(['user'=>$user_arr]);
                 $redirect = Cookie::get('refer');
                 $redirect = $redirect??'/index';
+                if(env('MAIL')){
+                    Mail::to($post['identifier'])->send(new Verify($userAuth));
+                }
                 throw new ApiException(['code'=>0,'msg'=>'添加成功','data'=>['redirect'=>$redirect,'user'=>$user_arr]]);
             }else{
                 throw new ApiException(['code'=>1,'msg'=>'添加失败']);
@@ -120,5 +126,85 @@ class IndexController extends Controller
         throw new ApiException(['code'=>0,'msg'=>'成功退出','data'=>['redirect'=>'/login']]);
     }
 
+    public function mailVerify(Request $request)
+    {
+        try {
+            $decrypted = Crypt::decryptString($request->token);
+            if($decrypted>=time()){
+                $userAuth = UserAuth::find($request->id);
+                if($userAuth){
+                    $userAuth->verified = 1;
+                    $userAuth->save();
+                    throw new ApiException(['code'=>0,'msg'=>'email sent','data'=>['redirect'=>'/index']]);
+                }
+                throw new ApiException(['code'=>3,'msg'=>'user not found','data'=>['redirect'=>'/index']]);
+            }else{
+                throw new ApiException(['code'=>2,'msg'=>'Token Expire','data'=>['redirect'=>'/index']]);
+            }
+        } catch (DecryptException $e) {
+            throw new ApiException(['code'=>1,'msg'=>'Token Error','data'=>['redirect'=>'/index']]);
+        }
+    }
 
+    public function mailVerifySend(Request $request)
+    {
+        $userauth = UserAuth::where(['identity_type'=>'email','identifier'=>$request->input('email','')])->first();
+        if($userauth){
+            Mail::to($request->query('email'))->send(new Verify($userauth));
+            throw new ApiException(['code'=>0,'msg'=>'email sent','data'=>['redirect'=>'/index']]);
+        }else{
+            throw new ApiException(['code'=>1,'msg'=>'email not exist','data'=>['redirect'=>'/index']]);
+        }
+    }
+
+
+    public function forget(Request $request)
+    {
+        if($request->isMethod('post')) {
+            $userauth = UserAuth::where(['identity_type'=>'email','identifier'=>$request->input('email','')])->first();
+            if($userauth){
+                Mail::to($request->query('email'))->send(new Forget($userauth));
+                throw new ApiException(['code'=>0,'msg'=>'email sent','data'=>['redirect'=>'/index']]);
+            }else{
+                throw new ApiException(['code'=>1,'msg'=>'email not exist','data'=>['redirect'=>'/index']]);
+            }
+        }else{
+            $res=['title'=>'后台登录'];
+            return $this->makeView('laravel::index.forget',['res'=>$res]);
+        }
+    }
+
+    public function password(Request $request)
+    {
+        try {
+            $decrypted = Crypt::decryptString($request->token);
+            if($decrypted>=time()) {
+                $userAuth = UserAuth::find($request->id);
+                if($userAuth){
+                    if($request->isMethod('post')) {
+                        $validator = Validator::make($request->all(), [
+                            'credential' => 'required|between:6,64|alpha_num',
+                        ]);
+                        if ($validator->fails()) {
+                            throw new ApiException(['code'=>11000,'msg'=>'表单验证错误','data'=>$validator->errors()]);
+                        }
+                        $credential = $validator->safe()->only(['credential']);
+                        $userAuth->changePassword($userAuth->uuid,$credential);
+                        throw new ApiException(['code'=>0,'msg'=>'password reset success','data'=>['redirect'=>'/index']]);
+                    }else{
+                        $res = ['title' => '后台登录'];
+                        return $this->makeView('laravel::index.password', ['res' => $res]);
+                    }
+                }else{
+                    throw new ApiException(['code'=>3,'msg'=>'user error','data'=>['redirect'=>'/index']]);
+                }
+            }else{
+                throw new ApiException(['code'=>2,'msg'=>'Token Expire','data'=>['redirect'=>'/index']]);
+            }
+        } catch (DecryptException $e) {
+            throw new ApiException(['code'=>1,'msg'=>'Token Error','data'=>['redirect'=>'/index']]);
+        }
+
+
+    }
 }
