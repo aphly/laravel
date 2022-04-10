@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::middleware(['web'])->group(function () {
+    Route::get('/seccode', 'Aphly\Laravel\Controllers\SeccodeController@index');
+    Route::get('/seccode/{code}', 'Aphly\Laravel\Controllers\SeccodeController@check');
+
     Route::get('/userauth/{id}/verify/{token}', 'Aphly\Laravel\Controllers\IndexController@mailVerify');
     Route::match(['post'],'/email/verifysend', 'Aphly\Laravel\Controllers\IndexController@mailVerifySend');
     Route::match(['get', 'post'],'/userauth/{id}/password/{token}', 'Aphly\Laravel\Controllers\IndexController@password');

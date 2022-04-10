@@ -13,7 +13,7 @@ class Common
         if($request->path()=='login' || $request->path()=='register' || $request->path()=='logout'){
         }else{
             if($request->url()){
-                Cookie::queue('refer', $request->url(), 1200);
+                Cookie::queue('refer', $request->url(), 60);
             }
         }
         return $next($request);

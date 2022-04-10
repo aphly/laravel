@@ -20,8 +20,12 @@ class Func
         return array_pop($args);
     }
 
-    static function randStr($length){
-        $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    static function randStr($length,$seccode=false){
+        if($seccode){
+            $str = 'ABCDEFGHKMNPQRSTUVWXY3456789';
+        }else{
+            $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        }
         $len = strlen($str)-1;
         $randstr = '';
         for ($i=0;$i<$length;$i++) {
