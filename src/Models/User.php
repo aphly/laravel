@@ -12,7 +12,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     protected $table = 'user';
     protected $primaryKey = 'uuid';
-    protected $keyType = 'string';
     public $incrementing = false;
 
     const SET_ROLE_ID = 4;

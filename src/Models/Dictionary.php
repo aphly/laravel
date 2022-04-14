@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 class Dictionary extends Model
 {
     use HasFactory;
-    protected $table = 'dictionary';
+    protected $table = 'admin_dictionary';
     public $timestamps = false;
     protected $fillable = [
         'name','sort','pid','status','is_leaf','json','icon','value'

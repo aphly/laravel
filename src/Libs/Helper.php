@@ -2,6 +2,8 @@
 
 namespace Aphly\Laravel\Libs;
 
+use Aphly\Laravel\Libs\Snowflake\Snowflake;
+
 class Helper
 {
     static public function is_today($time){
@@ -11,8 +13,6 @@ class Helper
             return false;
         }
     }
-
-
 
     static function is_phone($mobile){
         if(preg_match("/^1\d{10}$/", $mobile)){
@@ -24,7 +24,8 @@ class Helper
 
     static function uuid()
     {
-        return md5(uniqid(mt_rand(), true));
+        //return md5(uniqid(mt_rand(), true));
+        return (new Snowflake)->id();
     }
 
     static function findAllFiles($dir,$type='curr'): array{

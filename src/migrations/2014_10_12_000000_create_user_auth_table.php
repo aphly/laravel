@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_auth', function (Blueprint $table) {
             $table->id();
-            $table->char('uuid',32)->index();
+            $table->unsignedBigInteger('uuid')->index();
             $table->char('identity_type',16);
             $table->string('identifier',128);
             $table->string('credential',255);

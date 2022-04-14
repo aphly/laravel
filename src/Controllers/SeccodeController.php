@@ -2,6 +2,7 @@
 
 namespace Aphly\Laravel\Controllers;
 
+use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Func;
 use Aphly\Laravel\Libs\Seccode;
 use Illuminate\Http\Request;
@@ -29,9 +30,9 @@ class SeccodeController extends Controller
         $code = $request->code;
         $seccode = Cookie::get('seccode');
         if($code && strtolower($code)==strtolower($seccode)){
-            return 'ok';
+            throw new ApiException(['code'=>1,'msg'=>'ok']);
         }else{
-            return 'no';
+            throw new ApiException(['code'=>1,'msg'=>'no']);
         }
     }
 }

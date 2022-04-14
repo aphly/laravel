@@ -24,7 +24,7 @@ class Forget extends Mailable
     {
         $this->userAuth = $userAuth;
         $this->userAuth->siteUrl = Func::siteUrl(request()->url());
-        $this->userAuth->token = Crypt::encryptString(time()+1200);
+        $this->userAuth->token = Crypt::encryptString($userAuth->id.','.time()+1200);
     }
 
     /**
