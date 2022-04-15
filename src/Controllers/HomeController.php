@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class IndexController extends Controller
+class HomeController extends Controller
 {
 
     public function index(Request $request)
@@ -28,7 +28,7 @@ class IndexController extends Controller
         $res['title'] = '';
         $res['user'] = session('user');
 
-        return $this->makeView('laravel::index.index',['res'=>$res]);
+        return $this->makeView('laravel::home.index',['res'=>$res]);
     }
 
     public function autoLogin(Request $request)
@@ -84,7 +84,7 @@ class IndexController extends Controller
             throw new ApiException(['code'=>1,'msg'=>'邮箱或密码错误','data'=>['redirect'=>'/index']]);
         }else{
             $res['title'] = '';
-            return $this->makeView('laravel::index.login',['res'=>$res]);
+            return $this->makeView('laravel::home.login',['res'=>$res]);
         }
     }
 
@@ -118,7 +118,7 @@ class IndexController extends Controller
             }
         }else{
             $res['title'] = '';
-            return $this->makeView('laravel::index.register',['res'=>$res]);
+            return $this->makeView('laravel::home.register',['res'=>$res]);
         }
     }
 
@@ -174,7 +174,7 @@ class IndexController extends Controller
             }
         }else{
             $res['title'] = '';
-            return $this->makeView('laravel::index.forget',['res'=>$res]);
+            return $this->makeView('laravel::home.forget',['res'=>$res]);
         }
     }
 
@@ -201,7 +201,7 @@ class IndexController extends Controller
                     }else{
                         $res['title'] = '';
                         $res['token'] = $request->token;
-                        return $this->makeView('laravel::index.forget-password', ['res' => $res]);
+                        return $this->makeView('laravel::home.forget-password', ['res' => $res]);
                     }
                 }else{
                     throw new ApiException(['code'=>3,'msg'=>'user error','data'=>['redirect'=>'/index']]);

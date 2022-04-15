@@ -14,7 +14,7 @@ class User extends Authenticatable
     protected $primaryKey = 'uuid';
     public $incrementing = false;
 
-    const SET_ROLE_ID = 4;
+
 
     /**
      * The attributes that are mass assignable.

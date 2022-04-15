@@ -1,6 +1,9 @@
 <?php
 namespace Aphly\Laravel\Libs;
 
+use Aphly\Laravel\Exceptions\ApiException;
+use Illuminate\Support\Facades\Cookie;
+
 class Seccode {
 
 	public $code;
@@ -18,6 +21,14 @@ class Seccode {
 
 	private $fontcolor;
 	private $im;
+
+    public function _check($code)
+    {
+        $seccode = Cookie::get('seccode');
+        if(!$code || strtolower($code)!=strtolower($seccode)){
+            throw new ApiException(['code'=>1,'msg'=>'no']);
+        }
+    }
 
 	function display() {
 		if(function_exists('imagecreate') && function_exists('imagecolorset') && function_exists('imagecopyresized') &&

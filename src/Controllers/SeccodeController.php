@@ -6,12 +6,11 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Func;
 use Aphly\Laravel\Libs\Seccode;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 
 class SeccodeController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
         $seccode = Func::randStr(4,true);
         $cookie = cookie('seccode', $seccode, 60);
@@ -27,12 +26,8 @@ class SeccodeController extends Controller
 
     public function check(Request $request)
     {
-        $code = $request->code;
-        $seccode = Cookie::get('seccode');
-        if($code && strtolower($code)==strtolower($seccode)){
-            throw new ApiException(['code'=>1,'msg'=>'ok']);
-        }else{
-            throw new ApiException(['code'=>1,'msg'=>'no']);
-        }
+        (new Seccode())->_check($request->code);
+        throw new ApiException(['code'=>0,'msg'=>'ok']);
     }
+
 }
