@@ -2,9 +2,7 @@
 
 namespace Aphly\Laravel\Models;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 class UserAuth extends Model

@@ -4,7 +4,6 @@ namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Libs\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
 class Dictionary extends Model
