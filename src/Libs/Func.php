@@ -39,4 +39,11 @@ class Func
         preg_match('/^(http(s)?:\/\/.+?)\//',$url,$matches);
         return $matches[1] ?? '';
     }
+
+    function checkDir($fileName,$read_write = '0777'){
+        $path = dirname($fileName);
+        if(!file_exists($path)){
+            mkdir ($path,$read_write,true);
+        }
+    }
 }
