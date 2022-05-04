@@ -17,10 +17,20 @@ Route::middleware(['web'])->group(function () {
     Route::get('/seccode', 'Aphly\Laravel\Controllers\SeccodeController@index');
     Route::get('/seccode/{code}', 'Aphly\Laravel\Controllers\SeccodeController@check');
 
-    Route::get('/import_order', 'Aphly\Laravel\Controllers\OrderController@import_order');
-    Route::get('/import_express', 'Aphly\Laravel\Controllers\OrderController@import_express');
-    Route::get('/order', 'Aphly\Laravel\Controllers\OrderController@index');
-    Route::get('/express_send', 'Aphly\Laravel\Controllers\OrderController@express');
+});
+
+Route::middleware(['web'])->group(function () {
+
+//    Route::post('/upload', 'Aphly\Laravel\Controllers\UploadController@index');
+//    Route::get('/form', 'Aphly\Laravel\Controllers\UploadController@form');
+//
+//    Route::get('/import_order', 'Aphly\Laravel\Controllers\OrderController@import_order');
+//    Route::get('/import_express', 'Aphly\Laravel\Controllers\OrderController@import_express');
+//    Route::get('/order', 'Aphly\Laravel\Controllers\OrderController@index');
+//    Route::get('/express_send', 'Aphly\Laravel\Controllers\OrderController@express');
+
+
+
 //    Route::get('/index', 'Aphly\Laravel\Controllers\HomeController@index');
 //    Route::match(['get'],'/autologin/{token}', 'Aphly\Laravel\Controllers\HomeController@autoLogin');
 
