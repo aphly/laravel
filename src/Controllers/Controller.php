@@ -2,11 +2,18 @@
 
 namespace Aphly\Laravel\Controllers;
 
+use Aphly\LaravelAdmin\Models\Dict;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
 
 class Controller extends \App\Http\Controllers\Controller
 {
+    public function __construct()
+    {
+        View::share("dict",(new Dict)->getByKey());
+    }
+
     function makeView($template,$data){
         if(Request::wantsJson()){
             return response()->json($data);

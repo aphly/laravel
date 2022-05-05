@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('avatar',255)->nullable();
             $table->tinyInteger('status')->default(1)->comment('1:正常; 2:冻结');
             $table->tinyInteger('gender')->default(1);
+            $table->unsignedInteger('module_id')->default(1)->index();
             $table->timestamps();
         });
     }

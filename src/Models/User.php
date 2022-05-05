@@ -66,15 +66,6 @@ class User extends Authenticatable
         return $this->hasMany(UserAuth::class,'uuid');
     }
 
-    static public function getStatus($status)
-    {
-        if($status==1){
-            return '正常';
-        }else if($status==2){
-            return '冻结';
-        }
-    }
-
     static public function delAvatar($avatar) {
         if($avatar){
             Storage::delete($avatar);
