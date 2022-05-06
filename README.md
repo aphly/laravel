@@ -5,7 +5,6 @@ php7.3+<br>
 
 安装<br>
 `composer require aphly/laravel` <br>
-`php artisan vendor:publish --provider="Aphly\Laravel\InitServiceProvider"` <br>
 
 1、响应json格式 <br>
 修改文件 app/Exceptions/Handle.php <br>
