@@ -2,8 +2,6 @@
 
 namespace Aphly\Laravel\Libs;
 
-use Aphly\Laravel\Libs\Snowflake\Snowflake;
-
 class Helper
 {
     static public function is_today($time){
