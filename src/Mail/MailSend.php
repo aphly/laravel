@@ -8,7 +8,7 @@ class MailSend
 {
     public bool $status;
 
-    public function __construct($bool = false){
+    public function __construct($bool = true){
         $this->status = $bool;
     }
 
