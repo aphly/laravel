@@ -17,7 +17,7 @@ class ApiException extends \Exception
     /**
      * BusinessException constructor.
      *
-     * @param array $arr
+     * @param array|string $arr
      */
     public function __construct($arr)
     {
