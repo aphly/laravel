@@ -14,14 +14,17 @@ class ApiException extends \Exception
     private $arr;
 
     private $string;
+
+    private $cookie;
     /**
      * BusinessException constructor.
      *
      * @param array|string $arr
      */
-    public function __construct($arr)
+    public function __construct($arr,$cookie=false)
     {
         parent::__construct();
+        $this->cookie = $cookie;
         if(is_array($arr)){
             $this->code = $arr['code'] ?? 0;
             $this->msg  = $arr['msg'] ?? '';
@@ -42,15 +45,29 @@ class ApiException extends \Exception
     {
         if($request->expectsJson()) {
         }
-        if($this->arr){
-            return response()->json([
-                'code' => $this->code,
-                'msg' => $this->msg,
-                'data' => $this->data,
-            ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+       // $this->cookie = cookie('name', 'value', $minutes);
+        if($this->cookie){
+            if($this->arr){
+                return response()->json([
+                    'code' => $this->code,
+                    'msg' => $this->msg,
+                    'data' => $this->data,
+                ])->setEncodingOptions(JSON_UNESCAPED_UNICODE)->cookie($this->cookie);
+            }else{
+                return response($this->string)->cookie($this->cookie);
+            }
         }else{
-            return response($this->string);
+            if($this->arr){
+                return response()->json([
+                    'code' => $this->code,
+                    'msg' => $this->msg,
+                    'data' => $this->data,
+                ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            }else{
+                return response($this->string);
+            }
         }
+
         //return view('pages.error', ['msg' => $this->message]);
     }
 
