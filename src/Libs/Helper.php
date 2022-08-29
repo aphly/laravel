@@ -53,20 +53,22 @@ class Helper
     }
 
     static function getTree($array,$sort=false): array{
-        $new_array = [];
-        foreach($array as $v){
-            $new_array[$v['id']] = $v;
-        }
         $return_tree = [];
-        foreach($new_array as $k=>$v){
-            if(isset($new_array[$v['pid']])){
-                $new_array[$v['pid']]['child'][] = &$new_array[$k];
-                if($sort){
-                    $sort = array_column($new_array[$v['pid']]['child'],'sort');
-                    array_multisort($sort,SORT_DESC,SORT_NUMERIC,$new_array[$v['pid']]['child']);
+        if($array){
+            $new_array = [];
+            foreach($array as $v){
+                $new_array[$v['id']] = $v;
+            }
+            foreach($new_array as $k=>$v){
+                if(isset($new_array[$v['pid']])){
+                    $new_array[$v['pid']]['child'][] = &$new_array[$k];
+                    if($sort){
+                        $sort = array_column($new_array[$v['pid']]['child'],'sort');
+                        array_multisort($sort,SORT_DESC,SORT_NUMERIC,$new_array[$v['pid']]['child']);
+                    }
+                }else{
+                    $return_tree[] = &$new_array[$k];
                 }
-            }else{
-                $return_tree[] = &$new_array[$k];
             }
         }
         return $return_tree;
@@ -76,6 +78,7 @@ class Helper
         foreach($tree as $v){
             if($v['id']==$id){
                 $res=$v;
+                break;
             }else{
                 if(isset($v['child'])){
                     self::getTreeByid($v['child'],$id,$res);
