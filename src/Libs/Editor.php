@@ -43,7 +43,7 @@ class Editor
         return $content;
     }
 
-    function subHtml($html,$length,$sub='...') {
+    function subHtml2($html,$length,$sub='...') {
         $result = '';
         $tagStack = array();
         $len = 0;
@@ -131,6 +131,71 @@ class Editor
             $length=count($ar[0]);
         }
         return $length;
+    }
+
+    function subHtml($str,$num,$more='...')
+    {
+        $leng=strlen($str);
+        if($num>=$leng){
+            return $str;
+        }
+        $word=0;
+        $i=0;                        /** 字符串指针 **/
+        $stag=array(array());        /** 存放开始HTML的标志 **/
+        $etag=array(array());        /** 存放结束HTML的标志 **/
+        $sp = 0;
+        $ep = 0;
+        while($word!=$num) {
+            if(ord($str[$i])>128){
+                $i+=3;
+                $word++;
+            }else if($str[$i]=='<'){
+                if ($str[$i+1] == '!') {
+                    $i++;
+                    continue;
+                }
+                if ($str[$i+1]=='/'){
+                    $ptag=&$etag ;
+                    $k=&$ep;
+                    $i+=2;
+                } else {
+                    $ptag=&$stag;
+                    $i+=1;
+                    $k=&$sp;
+                }
+                for(;$i<$leng;$i++)  {
+                    if ($str[$i] == ' ') {
+                        $ptag[$k] = implode('',$ptag[$k]);
+                        $k++;
+                        break;
+                    }
+                    if ($str[$i] != '>'){
+                        $ptag[$k][]=$str[$i];
+                        continue;
+                    }else{
+                        $ptag[$k] = implode('',$ptag[$k]);
+                        $k++;
+                        break;
+                    }
+                }
+                $i++;
+                continue;
+            } else {
+                //$re.=substr($str,$i,1);
+                $word++;
+                $i++;
+            }
+        }
+        foreach ($etag as $val){
+            $key=array_search($val,$stag);
+            if ($key !== false){unset($stag[$key]); }
+        }
+        foreach ($stag as $key => $val) {
+            if (in_array($val,array('br','img'))){unset($stag[$key]);}
+        }
+        array_reverse($stag);
+        $re = substr($str,0,$i).$more.'</'.implode('></',$stag).'>';
+        return $re;
     }
 }
 
