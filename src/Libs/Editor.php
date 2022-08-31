@@ -193,9 +193,8 @@ class Editor
         foreach ($stag as $key => $val) {
             if (in_array($val,array('br','img'))){unset($stag[$key]);}
         }
-        array_reverse($stag);
-        $re = substr($str,0,$i).$more.'</'.implode('></',$stag).'>';
-        return $re;
+        //array_reverse($stag);
+        return  substr($str,0,$i).$more.'</'.implode('></',$stag).'>';
     }
 }
 
