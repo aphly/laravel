@@ -20,4 +20,29 @@ class Model extends ModelBase
         return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
     }
 
+    public static function year($year){
+        $instance = new static;
+        $instance->setYear($year);
+        return $instance->newQuery();
+    }
+
+    protected $year = null;
+
+    public function setYear($year){
+        $this->year = $year;
+        if($year != null){
+            $this->table = $this->getTable().'_'.$year;
+        }
+    }
+
+//    public function players(){
+//        $instance = new Player();
+//        $instance->setYear($this->year);
+//
+//        $foreignKey = $instance->getTable.'.'.$this->getForeignKey();
+//        $localKey = $this->getKeyName();
+//
+//        return new HasMany($instance->newQuery(), $this, $foreignKey, $localKey);
+//    }
+
 }
