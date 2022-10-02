@@ -9,7 +9,8 @@ class ApiException extends \Exception
     /**
      * @var mixed|string
      */
-    private $msg;
+    public $msg;
+    public $code;
 
     private $arr;
 

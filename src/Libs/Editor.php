@@ -15,6 +15,8 @@ class Editor
                 $new_img = str_replace($this->tmp_path,$this->dir_path,$temp_img);
                 $temp_img_path = public_path($temp_img);
                 $new_img_path = str_replace($this->tmp_path,$this->dir_path,$temp_img_path);
+                $new_img_path_dir = dirname($new_img_path);
+                !is_dir($new_img_path_dir) && mkdir($new_img_path_dir,0777,true);
                 if(file_exists($temp_img_path) && rename($temp_img_path, $new_img_path)){
                     $content = str_replace($temp_img,$new_img,$content);
                 }
@@ -41,6 +43,15 @@ class Editor
             $content = $this->add($newContent);
         }
         return $content;
+    }
+
+    public function del($content){
+        if(!empty($content)){
+            preg_match_all($this->pattern,$content,$old);
+            foreach ($old[1] as $val){
+                @unlink(public_path($val));
+            }
+        }
     }
 
     function subHtml2($html,$length,$sub='...') {
