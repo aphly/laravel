@@ -7,6 +7,21 @@ use Illuminate\Database\Eloquent\Model as ModelBase;
 
 class Model extends ModelBase
 {
+    protected $year = null;
+
+    public static function year($year){
+        $instance = new static;
+        $instance->setYear($year);
+        return $instance->newQuery();
+    }
+
+    public function setYear($year){
+        $this->year = $year;
+        if($year != null){
+            $this->table = $this->getTable().'_'.$year;
+        }
+    }
+
     public function fromDateTime($value){
         return strtotime(parent::fromDateTime($value));
     }
@@ -18,21 +33,6 @@ class Model extends ModelBase
 
     public function findAllIds($ids) {
         return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
-    }
-
-    public static function year($year){
-        $instance = new static;
-        $instance->setYear($year);
-        return $instance->newQuery();
-    }
-
-    protected $year = null;
-
-    public function setYear($year){
-        $this->year = $year;
-        if($year != null){
-            $this->table = $this->getTable().'_'.$year;
-        }
     }
 
 //    public function players(){
