@@ -39,10 +39,12 @@ class UploadFile
         if($this->limit && count($files)>$this->limit){
             throw new ApiException(['code'=>704,'msg'=>'Limit of '.$this->limit.' files']);
         }
-        $res = [];
+        $res = $check = [];
         foreach ($files as $file){
-            $arr = $this->_upload($file,$path);
-            $res[] = $arr[0]->store($arr[1]);
+            $check[] = $this->_upload($file,$path);
+        }
+        foreach ($check as $file){
+            $res[] = $file[0]->store($file[1]);
         }
         return $res;
     }
