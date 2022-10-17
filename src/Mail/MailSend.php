@@ -9,8 +9,8 @@ class MailSend
 {
     public bool $status;
 
-    public function __construct($bool = false){
-        $this->status = $bool;
+    public function __construct(){
+        $this->status = config('admin.email_status');
     }
 
     function do($email,$obj){

@@ -224,5 +224,3 @@ class Seccode {
         return trim(substr(strrchr($filename, '.'), 1, 10));
     }
 }
-
-?>
