@@ -21,9 +21,13 @@ class Controller extends \App\Http\Controllers\Controller
         return view($template, $data);
     }
 
-    function limiter($key,$limit){
+    function limiter($key,$limit=0){
         $num = Cache::get($key, 0);
-        return $num<$limit?true:false;
+        if($limit){
+            return $num<$limit?true:false;
+        }else{
+            return $num;
+        }
     }
 
     function limiterIncrement($key,$sec){

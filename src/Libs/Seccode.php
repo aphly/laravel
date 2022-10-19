@@ -1,7 +1,6 @@
 <?php
 namespace Aphly\Laravel\Libs;
 
-use Aphly\Laravel\Exceptions\ApiException;
 use Illuminate\Support\Facades\Cookie;
 
 class Seccode {
@@ -22,12 +21,13 @@ class Seccode {
 	private $fontcolor;
 	private $im;
 
-    public function _check($code)
+    public function check($code)
     {
         $seccode = Cookie::get('seccode');
-        if(!$code || strtolower($code)!=strtolower($seccode)){
-            throw new ApiException(['code'=>1,'msg'=>'no']);
+        if($code && strtolower($code)==strtolower($seccode)){
+            return true;
         }
+        return false;
     }
 
 	function display() {
@@ -140,7 +140,7 @@ class Seccode {
 
 	function ttffont() {
 		$seccode = $this->code;
-		$seccoderoot = public_path('vendor/laravel/font');
+		$seccoderoot = public_path('static/admin/font');
 		$dirs = opendir($seccoderoot);
 		$seccodettf = array();
 		while($entry = readdir($dirs)) {
