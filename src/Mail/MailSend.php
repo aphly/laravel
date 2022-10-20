@@ -10,7 +10,7 @@ class MailSend
     public bool $status;
 
     public function __construct(){
-        $this->status = config('admin.email_status');
+        $this->status = config('admin.mail_status');
     }
 
     function do($email,$obj){
