@@ -35,6 +35,10 @@ class Model extends ModelBase
         return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
     }
 
+	public function s($ids) {
+		return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
+	}
+
 //    public function players(){
 //        $instance = new Player();
 //        $instance->setYear($this->year);
