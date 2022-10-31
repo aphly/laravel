@@ -22,7 +22,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 	protected function addDontReport($class)
 	{
 		$exception = $this->app['Illuminate\Contracts\Debug\ExceptionHandler'];
-		return $exception->ignore($class);
+        if($exception instanceof \Illuminate\Foundation\Exceptions\Handler){
+            return $exception->ignore($class);
+        }
 	}
 
 	protected function addApiException($class_arr)
