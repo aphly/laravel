@@ -2,6 +2,9 @@
 
 namespace Aphly\Laravel\Providers;
 
+use Aphly\Laravel\Exceptions\ApiException;
+use Illuminate\Database\Eloquent\Builder;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     protected function addRouteMiddleware($name, $class)
@@ -34,5 +37,25 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 			$exception->map($val[0],$val[1]);
 		}
 	}
+
+    function addBuilder(){
+        Builder::macro('firstOrError', function () {
+            $info = $this->first();
+            if (!empty($info)) {
+                return $info;
+            }else{
+                throw new ApiException(['code'=>1,'msg'=>'error']);
+            }
+        });
+
+        Builder::macro('firstToArray', function () {
+            $info = $this->first();
+            if (!empty($info)) {
+                return $info->toArray();
+            }else{
+                return [];
+            }
+        });
+    }
 
 }
