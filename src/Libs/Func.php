@@ -46,4 +46,13 @@ class Func
             mkdir ($path,$read_write,true);
         }
     }
+
+    static function defaultId($arr){
+        foreach ($arr as $val){
+            if($val['default']==1){
+                return $val['id'];
+            }
+        }
+        return 0;
+    }
 }
