@@ -28,16 +28,13 @@ class Model extends ModelBase
 
     protected function serializeDate(DateTimeInterface $date)
     {
-        return $date->getTimestamp();
+        return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
     }
 
     public function findAllIds($ids) {
         return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
     }
 
-	public function s($ids) {
-		return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
-	}
 
 //    public function players(){
 //        $instance = new Player();
