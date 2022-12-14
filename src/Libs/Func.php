@@ -4,6 +4,7 @@ namespace Aphly\Laravel\Libs;
 
 class Func
 {
+    //$list = array_orderby($data, 'amount', SORT_DESC, 'age', SORT_DESC);
     static function array_orderby(){
         $args = func_get_args();
         $data = array_shift($args);
