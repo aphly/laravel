@@ -44,59 +44,81 @@ class ApiException extends \Exception
 
     public function render(Request $request)
     {
-        if($request->expectsJson()) {
-            if($this->cookie){
-                if($this->arr){
-                    return response()->json([
-                        'code' => $this->code,
-                        'msg' => $this->msg,
-                        'data' => $this->data,
-                    ])->setEncodingOptions(JSON_UNESCAPED_UNICODE)->cookie($this->cookie);
-                }else{
-                    return response($this->string)->cookie($this->cookie);
-                }
+        if($this->cookie){
+            if($this->arr){
+                return response()->json([
+                    'code' => $this->code,
+                    'msg' => $this->msg,
+                    'data' => $this->data,
+                ])->setEncodingOptions(JSON_UNESCAPED_UNICODE)->cookie($this->cookie);
             }else{
-                if($this->arr){
-                    return response()->json([
-                        'code' => $this->code,
-                        'msg' => $this->msg,
-                        'data' => $this->data,
-                    ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                }else{
-                    return response($this->string);
-                }
+                return response($this->string)->cookie($this->cookie);
             }
         }else{
-            if($this->cookie){
-                if($this->arr){
-                    if(isset($this->data['redirect'])){
-                        redirect($this->data['redirect'])->cookie($this->cookie)->send();
-                    }else{
-                        return response()->json([
-                            'code' => $this->code,
-                            'msg' => $this->msg,
-                            'data' => $this->data,
-                        ])->setEncodingOptions(JSON_UNESCAPED_UNICODE)->cookie($this->cookie);
-                    }
-                }else{
-                    return response($this->string)->cookie($this->cookie);
-                }
+            if($this->arr){
+                return response()->json([
+                    'code' => $this->code,
+                    'msg' => $this->msg,
+                    'data' => $this->data,
+                ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
             }else{
-                if($this->arr){
-                    if(isset($this->data['redirect'])){
-                        return redirect($this->data['redirect']);
-                    }else{
-                        return response()->json([
-                            'code' => $this->code,
-                            'msg' => $this->msg,
-                            'data' => $this->data,
-                        ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                    }
-                }else{
-                    return response($this->string);
-                }
+                return response($this->string);
             }
         }
+
+//        if($request->expectsJson()) {
+//            if($this->cookie){
+//                if($this->arr){
+//                    return response()->json([
+//                        'code' => $this->code,
+//                        'msg' => $this->msg,
+//                        'data' => $this->data,
+//                    ])->setEncodingOptions(JSON_UNESCAPED_UNICODE)->cookie($this->cookie);
+//                }else{
+//                    return response($this->string)->cookie($this->cookie);
+//                }
+//            }else{
+//                if($this->arr){
+//                    return response()->json([
+//                        'code' => $this->code,
+//                        'msg' => $this->msg,
+//                        'data' => $this->data,
+//                    ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+//                }else{
+//                    return response($this->string);
+//                }
+//            }
+//        }else{
+//            if($this->cookie){
+//                if($this->arr){
+//                    if(isset($this->data['redirect'])){
+//                        redirect($this->data['redirect'])->cookie($this->cookie)->send();
+//                    }else{
+//                        return response()->json([
+//                            'code' => $this->code,
+//                            'msg' => $this->msg,
+//                            'data' => $this->data,
+//                        ])->setEncodingOptions(JSON_UNESCAPED_UNICODE)->cookie($this->cookie);
+//                    }
+//                }else{
+//                    return response($this->string)->cookie($this->cookie);
+//                }
+//            }else{
+//                if($this->arr){
+//                    if(isset($this->data['redirect'])){
+//                        return redirect($this->data['redirect']);
+//                    }else{
+//                        return response()->json([
+//                            'code' => $this->code,
+//                            'msg' => $this->msg,
+//                            'data' => $this->data,
+//                        ])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+//                    }
+//                }else{
+//                    return response($this->string);
+//                }
+//            }
+//        }
         // $this->cookie = cookie('name', 'value', $minutes);
         //return view('pages.error', ['msg' => $this->message]);
     }
