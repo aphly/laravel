@@ -40,6 +40,6 @@ class FormRequest extends baseRequest
     }
 
     public function fail($validator){
-        throw new ApiException(['code'=>11000,'msg'=>'表单验证错误','data'=>$validator->errors()]);
+        throw new ApiException(['code'=>11000,'msg'=>'form error','data'=>$validator->errors()]);
     }
 }
