@@ -48,6 +48,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             }
         });
 
+        Builder::macro('firstOr404', function () {
+            $info = $this->first();
+            if (!empty($info)) {
+                return $info;
+            }else{
+                throw new ApiException(['code'=>0,'msg'=>'404','data'=>['redirect'=>'/404']]);
+            }
+        });
+
         Builder::macro('firstToArray', function () {
             $info = $this->first();
             if (!empty($info)) {
