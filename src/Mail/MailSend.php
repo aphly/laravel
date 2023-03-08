@@ -11,7 +11,7 @@ class MailSend
     public bool $status;
 
     public function __construct(
-        public bool $queue=false
+        public bool $queue=true
     ){
         $this->status = config('admin.mail_status');
     }
