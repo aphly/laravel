@@ -50,16 +50,20 @@ class UploadFile
     }
 
     function _upload($file,$path){
-        if ($file && $file->isValid()) {
-            $ext = $file->extension();
-            $size = $file->getSize();
-            if($size/1024/1024 > $this->size){
-                throw new ApiException(['code'=>701,'msg'=>'Size over '.$this->size.' M']);
+        if ($file) {
+            if($file->isValid()){
+                $ext = $file->extension();
+                $size = $file->getSize();
+                if($size/1024/1024 > $this->size){
+                    throw new ApiException(['code'=>701,'msg'=>'Size over '.$this->size.' M']);
+                }
+                if(!in_array($ext,$this->allow_ext)){
+                    throw new ApiException(['code'=>700,'msg'=>'Format not supported']);
+                }
+                return [$file,$path.'/'.date('Ym').'/'.date('d').'/'.date('Hi')];
+            }else{
+                throw new ApiException(['code'=>702,'msg'=>'Upload error']);
             }
-            if(!in_array($ext,$this->allow_ext)){
-                throw new ApiException(['code'=>700,'msg'=>'Format not supported']);
-            }
-            return [$file,$path.'/'.date('Ym').'/'.date('d').'/'.date('Hi')];
         }else{
             throw new ApiException(['code'=>703,'msg'=>'Upload error']);
         }
