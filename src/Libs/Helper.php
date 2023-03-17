@@ -117,4 +117,16 @@ class Helper
         }
     }
 
+    function searchArrayPath(array $haystack,$needle, array $path = [])
+    {
+        foreach ($haystack as $key => $value) {
+            $currentPath = array_merge($path, [$key]);
+            if (is_array($value) && $result = searchArrayPath( $value,$needle, $currentPath)) {
+                return $result;
+            } else if ($value === $needle) {
+                return $currentPath;
+            }
+        }
+        return false;
+    }
 }
