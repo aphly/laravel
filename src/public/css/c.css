@@ -1,0 +1,66 @@
+html{font-size: 14px;}
+li{list-style: none;}
+html,body{min-height: 100%;}
+a:hover,a{text-decoration: none; }
+ul,li,p,dl,dd{padding: 0;margin: 0;}
+
+.loading-pointer-inner{ margin: 0 auto;display: flex;justify-content: center;width:200px;height:50px}
+.loading-pointer-inner .pointer{width:10px;height:10px;margin:20px;background-color:#cccad3;border-radius:50%}
+.loading-pointer-inner .pointer:first-child{left:0;animation:loading .45s linear 0s infinite alternate}
+.loading-pointer-inner .pointer:nth-child(2){left:44px;animation:loading .45s linear .15s infinite alternate}
+.loading-pointer-inner .pointer:nth-child(3){left:88px;animation:loading .45s linear .3s infinite alternate}
+@keyframes loading{50%{transform:scale(1.5);}
+    to{transform:scale(2);}
+}
+
+#alert_msg{position:fixed;z-index: 999999;}
+#alert_msg .alert_msg{box-shadow: 0 0 15px rgba(0,0,0,0.3);min-width:200px;max-width:100%;font-size:14px;border-radius:4px;background-color: rgb(255,255,255);border: 1px solid #f1f1f1;}
+#alert_msg .alert_msg_header{padding:4px 10px;color:#6c757d;border-bottom:1px solid rgba(0,0,0,.05);display:flex;line-height:21px}
+#alert_msg .alert_msg_header span{cursor:pointer;font-size:20px;font-weight:700;color:#000;position:relative;top:0px;text-shadow:0 1px 0 #fff;opacity:.5}
+#alert_msg .alert_msg_body{padding:10px;}
+
+.wenzi{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.wenzid{overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+.bg_f{background:#fff}
+.ios{cursor: pointer;}
+.cl:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.y{float:right}
+.z{float:left}
+.none{display:none}
+.huis{color:#999 !important;}
+
+.pagination {height: 44px;position: relative; }
+.pagination .page-item{margin: 0 2px;padding: 0 4px;}
+/*.page-item.active .page-link {background-color: #ff8a65;border: #ff8a65 1px solid;}*/
+.page-link{ color: #333;border-radius: 4px;padding: 4px 12px;}
+
+.libs_input{display: flex;flex-wrap: wrap;}
+.libs_input .form-check{cursor: pointer;margin-right: 10px;padding-left: 20px;}
+.libs_input .form-check label,.libs_input .form-check input{cursor: pointer;}
+.libs_input .form-check:hover{color:#007bff;}
+
+.bowen{position:relative;overflow:hidden}
+.bowen span{position:absolute;background:#999;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;animation:bowen 0.4s linear infinite}
+@keyframes bowen{0%{width:0;height:0;opacity:0.5}100%{width:500px;height:500px;opacity:0}}
+
+.btn_loading{-webkit-animation:btn_loading 1s infinite linear;animation:btn_loading 1s infinite linear;display:inline-block}
+@-webkit-keyframes btn_loading{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}
+    100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
+}
+@keyframes btn_loading{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}
+     100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
+}
+.code_img{display: flex;justify-content: space-between;}
+.code_img img{width: 100px;margin-left: 10px;border-radius: 4px;cursor: pointer;}
+.code_img input{width: calc(100% - 110px);}
+@media (min-width: 1500px) {
+    .container {
+        max-width: 1470px;
+    }
+}
+
+/*滚动条*/
+div::-webkit-scrollbar{width: 4px;height: 12px;}
+div::-webkit-scrollbar-track { background: #efefef; border-radius: 10px;}
+div::-webkit-scrollbar-thumb {background: #ccc;border-radius: 10px;}
+/*滚动条*/
