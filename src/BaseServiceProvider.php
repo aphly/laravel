@@ -32,8 +32,8 @@ class BaseServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/admin.php' => config_path('base.php'),
-            __DIR__.'/public' => public_path('aphly/admin')
+            __DIR__.'/config/base.php' => config_path('base.php'),
+            __DIR__.'/public' => public_path('static/base')
         ]);
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/views', 'laravel');

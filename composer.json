@@ -1,6 +1,6 @@
 {
     "name": "aphly/laravel",
-    "description": "class for laravel",
+    "description": "base for laravel",
     "type": "library",
     "autoload": {
         "psr-4": {
@@ -15,6 +15,13 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=9.0"
+        "php": ">=8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aphly\\Laravel\\BaseServiceProvider"
+            ]
+        }
     }
 }

@@ -1,5 +1,5 @@
-@include('laravel-admin::common.header')
-<link rel="stylesheet" href="{{ URL::asset('static/admin/css/admin.css') }}">
+@include('laravel::admin.header')
+<link rel="stylesheet" href="{{ URL::asset('static/base/css/admin.css') }}">
 <section class="admin container-fluid">
     <div class="row">
         <div class="ad_left d-none d-lg-block">
@@ -54,7 +54,7 @@
                     <div class="dropdown">
                         <a style="display: block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user_dropdown">
-                                <img class="lazy user_avatar" @if($res['user']['gender']==1) src="{{url('static/admin/img/man.png')}}" @else src="{{url('static/admin/img/woman.png')}}" @endif data-original="">
+                                <img class="lazy user_avatar" @if($res['user']['gender']==1) src="{{url('static/base/img/man.png')}}" @else src="{{url('static/base/img/woman.png')}}" @endif data-original="">
                                 <span class="user_name wenzi">{{$res['user']['username']}}</span>
                                 <i class="uni app-xia" style="position: relative;top: 3px;"></i>
                             </div>
@@ -377,4 +377,4 @@
 
     }
 </script>
-@include('laravel-admin::common.footer')
+@include('laravel::admin.footer')

@@ -140,7 +140,7 @@ class Seccode {
 
 	function ttffont() {
 		$seccode = $this->code;
-		$seccoderoot = public_path('static/admin/font');
+		$seccoderoot = public_path('static/base/font');
 		$dirs = opendir($seccoderoot);
 		$seccodettf = array();
 		while($entry = readdir($dirs)) {

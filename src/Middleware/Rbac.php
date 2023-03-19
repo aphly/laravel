@@ -3,9 +3,9 @@
 namespace Aphly\Laravel\Middleware;
 
 use Aphly\Laravel\Exceptions\ApiException;
-use Aphly\LaravelAdmin\Models\Role;
-use Aphly\LaravelAdmin\Models\RolePermission;
-use Aphly\LaravelAdmin\Models\UserRole;
+use Aphly\Laravel\Models\Role;
+use Aphly\Laravel\Models\RolePermission;
+use Aphly\Laravel\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Closure;

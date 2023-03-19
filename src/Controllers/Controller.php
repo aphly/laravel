@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Request;
 
 class Controller extends \App\Http\Controllers\Controller
 {
-    public function __construct()
-    {
-
-    }
 
     function makeView($template,$data){
         if(Request::wantsJson()){
