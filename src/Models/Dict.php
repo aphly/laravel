@@ -4,7 +4,6 @@ namespace Aphly\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
-use Aphly\Laravel\Models\Model;
 
 class Dict extends Model
 {
@@ -12,7 +11,7 @@ class Dict extends Model
     protected $table = 'admin_dict';
     public $timestamps = false;
     protected $fillable = [
-        'name','sort','key','module_id'
+        'name','sort','key','level_id','module_id'
     ];
 
     public function getByKey()

@@ -3,7 +3,6 @@
 namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Exceptions\ApiException;
-use Aphly\Laravel\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;

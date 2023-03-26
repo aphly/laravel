@@ -20,6 +20,9 @@ class RoleMenu extends Model
         return $this->hasOne(Menu::class, 'id', 'menu_id');
     }
 
-
+    public function getMenu($role_id){
+        return self::leftJoin('admin_menu','admin_menu.id','=','admin_role_menu.menu_id')
+            ->where('admin_role_menu.role_id',$role_id)->get()->toArray();
+    }
 
 }

@@ -4,7 +4,6 @@ namespace Aphly\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
-use Aphly\Laravel\Models\Model;
 
 class Module extends Model
 {

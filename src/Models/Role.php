@@ -5,8 +5,6 @@ namespace Aphly\Laravel\Models;
 use Aphly\Laravel\Libs\Helper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Aphly\Laravel\Models\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class Role extends Model
@@ -19,10 +17,8 @@ class Role extends Model
 
     protected $fillable = [
         'name',
-        'pid',
-        'is_leaf',
         'status',
-        'sort','module_id'
+        'sort','level_id','module_id'
     ];
 
     public function permission()
@@ -37,7 +33,7 @@ class Role extends Model
 
     public function getRolePermission(): array
     {
-        $role_ids = UserRole::where([ 'uuid' => Auth::guard('manager')->user()->uuid ])->select('role_id')->get()->toArray();
+        $role_ids = ManagerRole::where([ 'uuid' => Manager::_uuid() ])->select('role_id')->get()->toArray();
         $role_ids = array_column($role_ids,'role_id');
         $role_permission = $this->role_permission_cache();
         $has_permission = [];
@@ -53,7 +49,7 @@ class Role extends Model
 
     public function getMenu(): array
     {
-        $role_ids = UserRole::where([ 'uuid' => Auth::guard('manager')->user()->uuid ])->select('role_id')->get()->toArray();
+        $role_ids = ManagerRole::where([ 'uuid' => Manager::_uuid()])->select('role_id')->get()->toArray();
         $role_ids = array_column($role_ids,'role_id');
         $role_menu = $this->role_menu_cache();
         $has_menu = [];
@@ -67,6 +63,17 @@ class Role extends Model
         return $has_menu;
     }
 
+    public function role_menu_cache(){
+        return Cache::rememberForever('role_menu', function () {
+            $menu = RoleMenu::leftJoin('admin_menu','admin_menu.id','=','admin_role_menu.menu_id')->where('admin_menu.status',1)->orderBy('admin_menu.sort','desc')->get()->toArray();
+            $role_menu = [];
+            foreach ($menu as $v) {
+                $role_menu[$v['role_id']][$v['menu_id']] = $v;
+            }
+            return $role_menu;
+        });
+    }
+
     public function role_permission_cache(){
         return Cache::rememberForever('role_permission', function () {
             $permission = RolePermission::whereHas('permission', function (Builder $query) {
@@ -77,21 +84,6 @@ class Role extends Model
                 $role_permission[$v['role_id']][$v['permission']['id']] = $v['permission']['controller'];
             }
             return $role_permission;
-        });
-    }
-
-    public function role_menu_cache(){
-
-        return Cache::rememberForever('role_menu', function () {
-//            $menu = RoleMenu::whereHas('menu', function (Builder $query) {
-//                $query->where('status', 1);
-//            })->with('menu')->get()->toArray();
-            $menu = RoleMenu::leftJoin('admin_menu','admin_menu.id','=','admin_role_menu.menu_id')->where('admin_menu.status',1)->orderBy('admin_menu.sort','desc')->get()->toArray();
-            $role_menu = [];
-            foreach ($menu as $v) {
-                $role_menu[$v['role_id']][$v['menu_id']] = $v;
-            }
-            return $role_menu;
         });
     }
 

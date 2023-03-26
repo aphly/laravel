@@ -4,7 +4,6 @@ namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Libs\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Aphly\Laravel\Models\Model;
 use Illuminate\Support\Facades\Cache;
 
 class Permission extends Model
@@ -19,7 +18,7 @@ class Permission extends Model
         'pid',
         'is_leaf',
         'status',
-        'sort','module_id'
+        'sort','level_id','module_id'
     ];
     public function getPermissionById($id)
     {

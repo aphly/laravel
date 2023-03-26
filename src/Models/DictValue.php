@@ -3,7 +3,7 @@
 namespace Aphly\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Aphly\Laravel\Models\Model;
+
 
 class DictValue extends Model
 {

@@ -3,7 +3,6 @@
 namespace Aphly\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Aphly\Laravel\Models\Model;
 use Illuminate\Support\Facades\Cache;
 
 class Config extends Model
@@ -12,7 +11,7 @@ class Config extends Model
     protected $table = 'admin_config';
     public $timestamps = false;
     protected $fillable = [
-        'type','key','value','module_id','name'
+        'type','key','value','level_id','name','module_id'
     ];
 
     function saveInput($request){

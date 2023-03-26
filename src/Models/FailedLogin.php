@@ -4,7 +4,7 @@ namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Aphly\Laravel\Models\Model;
+
 
 class FailedLogin extends Model
 {

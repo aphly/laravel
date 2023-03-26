@@ -2,7 +2,6 @@
 
 namespace Aphly\Laravel\Models;
 
-use Aphly\Laravel\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
 
@@ -38,5 +37,22 @@ class LevelPath extends Model
             ->selectRaw('any_value(c1.`id`) AS id,any_value(admin_level_path.`level_id`) AS level_id,
             GROUP_CONCAT(c2.`name` ORDER BY admin_level_path.level SEPARATOR \'&nbsp;&nbsp;&gt;&nbsp;&nbsp;\') AS name')
             ->get()->keyBy('id')->toArray();
+    }
+
+    public function rebuild($pid = 0) {
+        $levelData = Level::where('pid',$pid)->get();
+        foreach ($levelData as $val){
+            self::where('level_id',$val->id)->delete();
+            $level = 0;
+            $levelPathData = self::where('level_id',$val->pid)->orderBy('level','ASC')->get();
+            $data = [];
+            foreach ($levelPathData as $v){
+                $data[] = ['level_id' => $val->id,'path_id' =>$v->path_id,'level'=>$level];
+                $level++;
+            }
+            $data[] = ['level_id' => $val->id,'path_id' =>$val->id,'level'=>$level];
+            self::insert($data);
+            $this->rebuild($val->id);
+        }
     }
 }

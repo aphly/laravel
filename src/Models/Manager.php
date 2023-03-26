@@ -5,6 +5,7 @@ namespace Aphly\Laravel\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -15,6 +16,7 @@ class Manager extends Authenticatable
     protected $table = 'admin_manager';
     protected $primaryKey = 'uuid';
     public $incrementing = false;
+    static public $_uuid = 0;
     /**
      * The attributes that are mass assignable.
      *
@@ -27,7 +29,7 @@ class Manager extends Authenticatable
 
     protected $fillable = [
         'uuid','username','nickname','email','phone','password','token',
-        'token_expire','avatar','status','gender','super','status'
+        'token_expire','avatar','status','gender','status','level_id'
     ];
 
     /**
@@ -50,7 +52,20 @@ class Manager extends Authenticatable
 
     public function role()
     {
-        return $this->belongsToMany(Role::class,'admin_user_role','uuid','role_id','uuid');
+        return $this->belongsToMany(Role::class,'admin_manager_role','uuid','role_id','uuid');
+    }
+
+    static function _uuid(){
+        if(!self::$_uuid){
+            $auth = Auth::guard('manager');
+            if($auth->check()){
+                return self::$_uuid = $auth->user()->uuid;
+            }else{
+                return 0;
+            }
+        }else{
+            return self::$_uuid;
+        }
     }
 
     protected static function boot()

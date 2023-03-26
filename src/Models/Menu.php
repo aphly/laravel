@@ -4,7 +4,6 @@ namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Libs\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Aphly\Laravel\Models\Model;
 use Illuminate\Support\Facades\Cache;
 
 class Menu extends Model
@@ -20,7 +19,7 @@ class Menu extends Model
         'icon',
         'is_leaf',
         'status',
-        'sort','module_id'
+        'sort','level_id','module_id'
     ];
 
     public function getMenuById($id)
