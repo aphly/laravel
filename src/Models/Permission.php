@@ -13,13 +13,10 @@ class Permission extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'controller',
-        'pid',
-        'is_leaf',
-        'status',
+        'name','perm','pid','type','status',
         'sort','level_id','module_id'
     ];
+
     public function getPermissionById($id)
     {
         return Cache::rememberForever('permission_'.$id, function () use ($id) {
@@ -31,14 +28,14 @@ class Permission extends Model
         });
     }
 
-
-//    protected static function boot()
-//    {
-//        parent::boot();
-//        static::deleted(function (User $user) {
-//            UserUni::destroy($user->id);
-//            UserInfo::destroy($user->id);
-//            self::delAvatar($user->avatar);
-//        });
-//    }
+    public function toTreeSelect()
+    {
+        $res = [];
+        $arr = self::where(['status'=>1,'type'=>2])->get()->toArray();
+        foreach ($arr as $val){
+            $perm = explode('@',$val['perm']);
+            $res[$perm[0]][] = $val;
+        }
+        return $res;
+    }
 }

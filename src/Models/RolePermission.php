@@ -15,9 +15,9 @@ class RolePermission extends Model
         'role_id',
     ];
 
-    public function permission()
+    public function operation()
     {
-        return $this->hasOne(Permission::class, 'id', 'permission_id');
+        return $this->hasOne(Permission::class, 'id', 'operation_id');
     }
 
 

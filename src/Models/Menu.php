@@ -13,13 +13,8 @@ class Menu extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'url',
-        'pid',
-        'icon',
-        'is_leaf',
-        'status',
-        'sort','level_id','module_id'
+        'name','url','pid','icon','type',
+        'status','sort','module_id'
     ];
 
     public function getMenuById($id)

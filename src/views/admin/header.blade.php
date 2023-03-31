@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ URL::asset('static/base/editor/style.css') }}">
     <script src="{{ URL::asset('static/base/editor/index.js') }}"></script>
     <link rel="stylesheet" href="{{ URL::asset('static/base/css/links.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('static/base/css/jstree.css') }}">
+    <script src='{{ URL::asset('static/base/js/jstree.js') }}' type='text/javascript'></script>
 </head>
 <body>
 <style>
