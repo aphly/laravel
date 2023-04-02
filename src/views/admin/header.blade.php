@@ -10,7 +10,6 @@
     <script src='{{ URL::asset('static/base/js/jquery.min.js') }}' type='text/javascript'></script>
     <script src='{{ URL::asset('static/base/js/c.js') }}' type='text/javascript'></script>
     <script src='{{ URL::asset('static/base/js/admin.js') }}' type='text/javascript'></script>
-    <script src='{{ URL::asset('static/base/js/bootstrap-treeview.js') }}' type='text/javascript'></script>
     <link rel="stylesheet" href="{{ URL::asset('static/base/editor/style.css') }}">
     <script src="{{ URL::asset('static/base/editor/index.js') }}"></script>
     <link rel="stylesheet" href="{{ URL::asset('static/base/css/links.css') }}">

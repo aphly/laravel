@@ -13,7 +13,7 @@ class Menu extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','url','pid','icon','type',
+        'name','route','pid','icon','type',
         'status','sort','module_id'
     ];
 

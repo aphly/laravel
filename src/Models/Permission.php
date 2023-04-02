@@ -13,7 +13,7 @@ class Permission extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','perm','pid','type','status',
+        'name','route','pid','type','status',
         'sort','level_id','module_id'
     ];
 
@@ -32,10 +32,6 @@ class Permission extends Model
     {
         $res = [];
         $arr = self::where(['status'=>1,'type'=>2])->get()->toArray();
-        foreach ($arr as $val){
-            $perm = explode('@',$val['perm']);
-            $res[$perm[0]][] = $val;
-        }
         return $res;
     }
 }

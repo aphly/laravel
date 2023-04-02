@@ -116,18 +116,16 @@ button.badge{border: none;}
 .add_div{min-height: 100px;}
 
 
-.show_all0 .show_all{width:39%;border:1px solid #f1f1f1;border-radius:4px;padding:10px}
-.show_all0 .show_op{width: 59%;}
-.show_all0 .show_title{padding-bottom: 10px;border-bottom: 1px solid #f1f1f1;}
-.show_all0 .fast_form_btn span,.show_all0 .fast_form_btn .fast_del{display:block;cursor:pointer;border-radius:4px;border:1px solid #ddd;text-align:center;padding:0 12px;margin-right: 20px;height:34px;line-height:34px;color:#666;min-width:60px;background:-webkit-linear-gradient(top,#F5F5F5,#F1F1F1)}
-.show_all0 .fast_form_btn span.curr{background:#007bff;color: #fff; border: none;}
-.show_all0 #show_btn{margin-bottom: 10px;}
-.show_all0 .fast_form_btn .fast_del,.fast_form_btn .fast_del.curr{background:#e59598;color: #fff;border: none;}
-.show_all0_btn{ background:#007bff;font-size: 12px;padding: 10px 20px;}
+.tree_div .show_all{width:39%;border:1px solid #f1f1f1;border-radius:4px;padding:10px;min-height: 500px;}
+.tree_div .show_op{width: 59%;}
+.tree_div .show_title{padding-bottom: 10px;border-bottom: 1px solid #f1f1f1;}
+.tree_div .tree_form_btn span,.tree_div .tree_form_btn .tree_del{display:block;cursor:pointer;border-radius:4px;border:1px solid #ddd;text-align:center;padding:0 12px;margin-right: 20px;height:34px;line-height:34px;color:#666;min-width:60px;background:-webkit-linear-gradient(top,#F5F5F5,#F1F1F1)}
+.tree_div .tree_form_btn span.curr{background:#007bff;color: #fff; border: none;}
+.tree_div #show_btn{margin-bottom: 10px;}
+.tree_div .tree_form_btn .tree_del,.tree_form_btn .tree_del.curr{background:#e59598;color: #fff;border: none;}
+.tree_div_btn{ background:#007bff;font-size: 12px;padding: 10px 20px;}
 
 .module_id{color: #fff;background-color: #3c19b5;}
-
-
 
 
 

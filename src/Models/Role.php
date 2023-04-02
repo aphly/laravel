@@ -16,9 +16,7 @@ class Role extends Model
     const MANAGER = 2;
 
     protected $fillable = [
-        'name',
-        'status',
-        'sort','level_id','module_id'
+        'name','desc','status','sort','module_id'
     ];
 
     public function permission()

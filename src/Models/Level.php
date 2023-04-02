@@ -13,7 +13,7 @@ class Level extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','pid','sort','status','is_leaf'
+        'name','pid','sort','status','type'
     ];
 
     public function findAll() {

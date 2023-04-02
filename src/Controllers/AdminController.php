@@ -28,15 +28,6 @@ class AdminController extends Controller
         });
     }
 
-    public function index_url($post): string
-    {
-        if (!empty($post['pid'])) {
-            return $this->index_url . '?pid=' . $post['pid'];
-        } else {
-            return $this->index_url;
-        }
-    }
-
     public function uninstall(){
         $admin_menu = DB::table('base_menu')->where('module_id',$this->module_id);
         $arr = $admin_menu->get()->toArray();
