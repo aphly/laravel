@@ -24,12 +24,12 @@
                                                 <div id="collapse{{$v['id']}}" class="collapse ">
                                                     <ul class="card-body">
                                                         @foreach($v['child'] as $v1)
-                                                            <li class="third_menu"><a class="dj" data-title="{{$v1['name']}}" data-href="{{$v1['url']}}">{{$v1['name']}}</a></li>
+                                                            <li class="third_menu"><a class="dj" data-title="{{$v1['name']}}" data-href="{{$v1['route']}}">{{$v1['name']}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             @else
-                                                <a class="dj" data-title="{{$v['name']}}" data-href="{{$v['url']}}">{{$v['name']}}</a>
+                                                <a class="dj" data-title="{{$v['name']}}" data-href="{{$v['route']}}">{{$v['name']}}</a>
                                             @endif
                                         </li>
                                         @endforeach
