@@ -24,5 +24,4 @@ class Level extends Model
     }
 
 
-
 }

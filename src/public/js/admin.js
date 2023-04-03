@@ -55,7 +55,7 @@ class MyTree{
         _this.op.type='add'
         $(_this.op.tree_form).show();
         if(pid){
-            for(let i in _this.op.listById[pid]) {
+            for(let i in _this.op.list[pid]) {
                 $(_this.op.tree_form + ' input[name="' + i + '"]').val('');
                 $(_this.op.tree_form + ' select[name="' + i + '"]').val(1);
                 $(_this.op.tree_form + ' textarea[name="' + i + '"]').val('');
@@ -72,10 +72,10 @@ class MyTree{
         _this.op.type='edit'
         $(_this.op.tree_form).show();
         if(id){
-            for(let i in _this.op.listById[id]){
-                $(_this.op.tree_form+' input[name="'+i+'"]').val(_this.op.listById[id][i]);
-                $(_this.op.tree_form+' select[name="'+i+'"]').val(_this.op.listById[id][i]);
-                $(_this.op.tree_form+' textarea[name="'+i+'"]').val(_this.op.listById[id][i]);
+            for(let i in _this.op.list[id]){
+                $(_this.op.tree_form+' input[name="'+i+'"]').val(_this.op.list[id][i]);
+                $(_this.op.tree_form+' select[name="'+i+'"]').val(_this.op.list[id][i]);
+                $(_this.op.tree_form+' textarea[name="'+i+'"]').val(_this.op.list[id][i]);
             }
         }
     }
@@ -130,7 +130,8 @@ class MyTree{
     }
     treeFormat(data,select_ids=false){
         let new_array = [];
-        data.forEach((item) => {
+        for(let i in data){
+            let item = data[i]
             let parent = this.op.root===item.pid?'#':item.pid;
             let data_btn = item.type==3?true:false;
             if(select_ids){
@@ -139,8 +140,7 @@ class MyTree{
             }else{
                 new_array.push({id:item.id,text:item.name,parent,data:{type:item.type,pid:item.pid,id:item.id},li_attr:{"data-btn": data_btn}})
             }
-            delete item.nodes;
-        });
+        }
         return new_array;
     }
     getSelectIds(data){
