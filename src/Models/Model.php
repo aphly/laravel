@@ -35,22 +35,21 @@ class Model extends ModelBase
         return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
     }
 
-
-//    public function players(){
-//        $instance = new Player();
-//        $instance->setYear($this->year);
-//
-//        $foreignKey = $instance->getTable.'.'.$this->getForeignKey();
-//        $localKey = $this->getKeyName();
-//
-//        return new HasMany($instance->newQuery(), $this, $foreignKey, $localKey);
-//    }
-
-
     public static function getEloquentSqlWithBindings($query)
     {
         return vsprintf(str_replace('?', '%s', $query->toSql()), collect($query->getBindings())->map(function ($binding) {
             return is_numeric($binding) ? $binding : "'{$binding}'";
         })->toArray());
+    }
+
+    public function scopeDataPerm($query,$uuid,$level_ids,$data_perm)
+    {
+        if($data_perm==2){
+            return $query->where('level_id', $level_ids);
+        }else if($data_perm==3){
+            return $query->whereIn('level_id', $level_ids);
+        }else{
+            return $query->where('uuid', $uuid);
+        }
     }
 }

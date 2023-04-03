@@ -55,4 +55,9 @@ class LevelPath extends Model
             $this->rebuild($val->id);
         }
     }
+
+    public function hasLevelIds($path_id){
+        $arr = self::where('path_id',$path_id)->get()->toArray();
+        return array_column($arr,'level_id');
+    }
 }

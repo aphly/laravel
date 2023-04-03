@@ -123,7 +123,7 @@ button.badge{border: none;}
 .tree_div .tree_form_btn span.curr{background:#007bff;color: #fff; border: none;}
 .tree_div #show_btn{margin-bottom: 10px;}
 .tree_div .tree_form_btn .tree_del,.tree_form_btn .tree_del.curr{background:#e59598;color: #fff;border: none;}
-.tree_div_btn{ background:#007bff;font-size: 12px;padding: 10px 20px;}
+.tree_div_btn,.show_all0_btn,.admin_right_btn{ background:#007bff;font-size: 12px;padding: 10px 20px;}
 
 .module_id{color: #fff;background-color: #3c19b5;}
 
