@@ -2,54 +2,10 @@
 
 namespace Aphly\Laravel\Models;
 
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model as ModelBase;
+use Aphly\Laravel\Traits\Base;
 
 class Model extends ModelBase
 {
-    protected $year = null;
-
-    public static function year($year){
-        $instance = new static;
-        $instance->setYear($year);
-        return $instance->newQuery();
-    }
-
-    public function setYear($year){
-        $this->year = $year;
-        if($year != null){
-            $this->table = $this->getTable().'_'.$year;
-        }
-    }
-
-    public function fromDateTime($value){
-        return strtotime(parent::fromDateTime($value));
-    }
-
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
-    }
-
-    public function findAllIds($ids) {
-        return self::whereIn($this->primaryKey, $ids)->get()->keyBy($this->primaryKey)->toArray();
-    }
-
-    public static function getEloquentSqlWithBindings($query)
-    {
-        return vsprintf(str_replace('?', '%s', $query->toSql()), collect($query->getBindings())->map(function ($binding) {
-            return is_numeric($binding) ? $binding : "'{$binding}'";
-        })->toArray());
-    }
-
-    public function scopeDataPerm($query,$uuid,$level_ids,$data_perm)
-    {
-        if($data_perm==2){
-            return $query->where('level_id', $level_ids);
-        }else if($data_perm==3){
-            return $query->whereIn('level_id', $level_ids);
-        }else{
-            return $query->where('uuid', $uuid);
-        }
-    }
+    use Base;
 }

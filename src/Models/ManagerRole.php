@@ -43,4 +43,10 @@ class ManagerRole extends Model
 //        }
 //        return $has_menu;
 //    }
+
+    public function hasLevelIds($uuid){
+        $data = self::where('uuid',$uuid)->get()->toArray();
+        $role_ids = array_column($data,'role_id');
+        return (new Role)->hasLevelIds($role_ids);
+    }
 }

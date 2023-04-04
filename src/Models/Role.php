@@ -16,7 +16,7 @@ class Role extends Model
     const MANAGER = 2;
 
     protected $fillable = [
-        'name','desc','status','sort','module_id','data_perm'
+        'name','desc','status','sort','module_id','data_perm','level_id'
     ];
 
     public function permission()
@@ -93,5 +93,19 @@ class Role extends Model
             Helper::TreeToArr([$res['role_tree']],$res['role_show']);
             return $res['role_show'];
         });
+    }
+
+    public function hasLevelIds($role_id){
+        $info = self::where('id',$role_id)->firstOrArray();
+        $level_ids = [];
+        if($info['data_perm']==3){
+            $levelPath = (new LevelPath)->hasAll($info['level_id']);
+            foreach ($levelPath as $v){
+                $level_ids[] = $v['level_id'];
+            }
+        }else if($info['data_perm']==2){
+            $level_ids[] = $info['level_id'];
+        }
+        return $level_ids;
     }
 }

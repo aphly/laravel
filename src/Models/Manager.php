@@ -2,6 +2,7 @@
 
 namespace Aphly\Laravel\Models;
 
+use Aphly\Laravel\Traits\Base;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Manager extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,Base;
     protected $table = 'admin_manager';
     protected $primaryKey = 'uuid';
     public $incrementing = false;
@@ -22,10 +23,6 @@ class Manager extends Authenticatable
      *
      * @var array
      */
-
-    public function fromDateTime($value){
-        return strtotime(parent::fromDateTime($value));
-    }
 
     protected $fillable = [
         'uuid','username','nickname','email','phone','password','token',
@@ -54,6 +51,7 @@ class Manager extends Authenticatable
     {
         return $this->belongsToMany(Role::class,'admin_manager_role','uuid','role_id','uuid');
     }
+
 
     static function _uuid(){
         if(!self::$_uuid){
