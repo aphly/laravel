@@ -96,7 +96,7 @@ class Role extends Model
     }
 
     public function hasLevelIds($role_id){
-        $info = self::where('id',$role_id)->firstOrArray();
+        $info = self::where('id',$role_id)->firstToArray();
         $level_ids = [];
         if($info['data_perm']==3){
             $levelPath = (new LevelPath)->hasAll($info['level_id']);

@@ -127,8 +127,11 @@ button.badge{border: none;}
 
 .module_id{color: #fff;background-color: #3c19b5;}
 
+.del_form .my_alert{line-height: 20px; padding: 0 5px;margin: 0;}
 
-
+.tree_box_pre{margin-bottom: 10px;cursor: pointer;}
+.tree_box{position: relative;width: 100%;display: none;}
+.tree_box .tree_p{position: absolute;width: 100%;background: #fff;box-shadow: 0 1px 4px rgba(24,38,16,0.1);height: 200px;overflow-y: auto;}
 
 @media (max-width: 1199.98px) {
     .table_scroll .table,.min_width{width: 1000px;}
