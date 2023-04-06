@@ -29,6 +29,11 @@ class Role extends Model
         return $this->belongsToMany(Menu::class,'admin_role_menu','role_id','menu_id');
     }
 
+    public function level()
+    {
+        return $this->hasOne(level::class, 'id', 'level_id');
+    }
+
     public function getRolePermission(): array
     {
         $role_ids = ManagerRole::where([ 'uuid' => Manager::_uuid() ])->select('role_id')->get()->toArray();
