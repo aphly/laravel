@@ -51,7 +51,7 @@ body{background-color: #f4f4f4;}
 .admin .ad_left .menu .active{background: #e7e6e6;color: #465d67;}
 .admin .ad_left .menu dl dd a i.z{margin-right: 5px;}
 .admin .ad_left .menu dl dd a{padding:0 20px;}
-.admin .ad_left .menu dl dd>a{color: #666;}
+.admin .ad_left .menu dl dd>a{color: #333;font-size: 15px;}
 .third_menu a{text-indent: 40px;}
 .admin .ad_left .menu dl dd>a i{color: #666;}
 

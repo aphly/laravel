@@ -3,12 +3,13 @@
 namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Libs\Helper;
+use Aphly\Laravel\Traits\Tree;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
 
 class Menu extends Model
 {
-    use HasFactory;
+    use HasFactory,Tree;
     protected $table = 'admin_menu';
     public $timestamps = false;
 
@@ -27,4 +28,6 @@ class Menu extends Model
             return $res['menu_show'];
         });
     }
+
+
 }

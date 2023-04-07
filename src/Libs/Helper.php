@@ -76,7 +76,7 @@ class Helper
 
     static function treeArrFilter(&$tree){
         foreach ($tree as $key=>$val){
-            if($val['status']==0){
+            if($val['status']==2){
                 unset($tree[$key]);
             }else if(isset($val['child'])){
                 self::treeArrFilter($tree[$key]['child']);

@@ -3,11 +3,9 @@
 namespace Aphly\Laravel\Middleware;
 
 use Aphly\Laravel\Exceptions\ApiException;
-use Aphly\Laravel\Models\Role;
+use Aphly\Laravel\Models\RoleMenu;
 use Aphly\Laravel\Models\RolePermission;
-use Aphly\Laravel\Models\ManagerRole;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Closure;
 
 class Rbac
@@ -16,33 +14,40 @@ class Rbac
 
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
-        if( !$this->checkPermission( $request->route()->getAction()['controller'] ) ){
-            throw new ApiException(['code'=>1,'msg'=>'没有权限']);
+        if( !$this->checkPermission( $request->route()->uri ) ){
+            throw new ApiException('没有权限');
         }
         return $next($request);
     }
 
-    public function checkPermission( $controller ){
-        if(Auth::guard('manager')->user()->super==1){
+    public function checkPermission( $uri ){
+        if( in_array( $uri,$this->ignore_url ) ){
             return true;
         }
-        if( in_array( $controller,$this->ignore_url ) ){
-            return true;
+        $role_id = session('role_id');
+        if($role_id){
+            if($role_id == 1){
+                return true;
+            }
+            $roleMenu = RoleMenu::leftJoin('admin_menu','admin_menu.id','=','admin_role_menu.menu_id')->where('admin_role_menu.role_id',$role_id)
+                ->where('admin_menu.status',1)->get()->toArray();
+            if($roleMenu){
+                $menu_route = array_filter(array_column($roleMenu,'route'));
+                if(in_array($uri,$menu_route)){
+                    return true;
+                }
+            }
+            $rolePermission = RolePermission::leftJoin('admin_permission','admin_permission.id','=','admin_role_permission.permission_id')
+                ->where('admin_role_permission.role_id',$role_id)
+                ->where('admin_permission.status',1)->get()->toArray();
+            if($rolePermission){
+                $permission_route = array_filter(array_column($rolePermission,'route'));
+                if(in_array($uri,$permission_route)){
+                    return true;
+                }
+            }
         }
-        list($class) = explode('@',$controller);
-        return in_array( $controller, (new Role)->getRolePermission()) || in_array( $class, (new Role)->getRolePermission());
-    }
-
-    public function getRolePermission_bf(){
-        $role_ids = ManagerRole::where([ 'uuid' => Auth::guard('manager')->user()->uuid ])->select('role_id')->get()->toArray();
-        $role_ids = array_column($role_ids,'role_id');
-        $permission = RolePermission::whereIn('role_id',$role_ids)->with('permission')->get()->toArray();
-        $has_permission = [];
-        foreach ($permission as $v){
-            $has_permission[$v['permission']['id']] = $v['permission']['controller'];
-        }
-        return $has_permission;
+        return false;
     }
 
 }

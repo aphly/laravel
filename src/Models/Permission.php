@@ -3,12 +3,13 @@
 namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Libs\Helper;
+use Aphly\Laravel\Traits\Tree;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
 
 class Permission extends Model
 {
-    use HasFactory;
+    use HasFactory,Tree;
     protected $table = 'admin_permission';
     public $timestamps = false;
 
@@ -28,10 +29,5 @@ class Permission extends Model
         });
     }
 
-    public function toTreeSelect()
-    {
-        $res = [];
-        $arr = self::where(['status'=>1,'type'=>2])->get()->toArray();
-        return $res;
-    }
+
 }

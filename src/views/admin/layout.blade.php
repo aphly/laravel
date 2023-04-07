@@ -11,30 +11,34 @@
                     @if(isset($res['menu_tree']))
                         @foreach($res['menu_tree'] as $val)
                             <dd class="">
-                                <a class="s_nav_t text-left" data-toggle="collapse" data-target="#collapse{{$val['id']}}" aria-expanded="true" aria-controls="collapse{{$val['id']}}">
-                                    <i class="{{$val['icon']}}"></i> {{$val['name']}} <i class="uni app-caret-right-copy y"></i>
-                                </a>
                                 @if(isset($val['child']))
-                                <div id="collapse{{$val['id']}}" class="collapse show">
-                                    <ul class="card-body">
-                                        @foreach($val['child'] as $v)
-                                        <li class="">
-                                            @if(isset($v['child']))
-                                                <a class="s_nav_t text-left" data-toggle="collapse" data-target="#collapse{{$v['id']}}" aria-expanded="true" aria-controls="collapse{{$v['id']}}">{{$v['name']}}<i class="uni app-caret-right-copy y"></i></a>
-                                                <div id="collapse{{$v['id']}}" class="collapse ">
-                                                    <ul class="card-body">
-                                                        @foreach($v['child'] as $v1)
-                                                            <li class="third_menu"><a class="dj" data-title="{{$v1['name']}}" data-href="{{$v1['route']}}">{{$v1['name']}}</a></li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @else
-                                                <a class="dj" data-title="{{$v['name']}}" data-href="{{$v['route']}}">{{$v['name']}}</a>
-                                            @endif
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                                    <a class="s_nav_t text-left" data-toggle="collapse" data-target="#collapse{{$val['id']}}" aria-expanded="true" aria-controls="collapse{{$val['id']}}">
+                                        <i class="{{$val['icon']}}"></i> {{$val['name']}} <i class="uni app-qianjin_r y"></i>
+                                    </a>
+                                    <div id="collapse{{$val['id']}}" class="collapse show">
+                                        <ul class="card-body">
+                                            @foreach($val['child'] as $v)
+                                            <li class="">
+                                                @if(isset($v['child']))
+                                                    <a class="s_nav_t text-left" data-toggle="collapse" data-target="#collapse{{$v['id']}}" aria-expanded="true" aria-controls="collapse{{$v['id']}}">{{$v['name']}}<i class="uni app-qianjin_r y"></i></a>
+                                                    <div id="collapse{{$v['id']}}" class="collapse ">
+                                                        <ul class="card-body">
+                                                            @foreach($v['child'] as $v1)
+                                                                <li class="third_menu"><a class="dj" data-title="{{$v1['name']}}" data-href="/{{$v1['route']}}">{{$v1['name']}}</a></li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @else
+                                                    <a class="dj" data-title="{{$v['name']}}" data-href="/{{$v['route']}}">{{$v['name']}}</a>
+                                                @endif
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @else
+                                    <a class="s_nav_t text-left dj active" data-title="{{$val['name']}}" data-href="/{{$val['route']}}">
+                                        <i class="{{$val['icon']}}"></i> {{$val['name']}}
+                                    </a>
                                 @endif
                             </dd>
                         @endforeach
@@ -48,7 +52,6 @@
                 <div class="d-flex">
                     <div id="showmenu" class="uni app-px1 d-lg-none"></div>
                     <a href="/" class="portal" target="_blank">网站首页</a>
-                    <a href="javascript:void(0)"  class="portal " onclick="back()">返回</a>
                 </div>
                 <div class="d-flex">
                     <div class="dropdown">
@@ -89,29 +92,12 @@
 </section>
 
 <script>
-    var url_history = [];
     function ajax_complete() {
         $('.ajax_modal').modal('hide');
     }
-    function back(){
-        if(url_history.length>1){
-            url_history.pop()
-            let url = url_history[url_history.length-1]
-            $("#s_nav .dj").each(function () {
-                if($(this).data('href')==url){
-                    $(this).addClass('active')
-                }else{
-                    $(this).removeClass('active')
-                }
-            });
-            iload(url);
-        }
-    }
+
     function iload(url,data='') {
         if(url){
-            if(!in_array(url,url_history)){
-                url_history.push(url)
-            }
             $('#loading').css('z-index',100);
             $.ajax({
                 url,data,
@@ -329,10 +315,10 @@
 
         $('.accordion .s_nav_t').on('click', function () {
             let obj = $(this).children().filter(".y");
-            if(obj.hasClass('app-caret-right-copy')){
-                obj.removeClass('app-caret-right-copy').addClass('app-xia');
+            if(obj.hasClass('app-qianjin_r')){
+                obj.removeClass('app-qianjin_r').addClass('app-qianjin_xia');
             }else{
-                obj.removeClass('app-xia').addClass('app-caret-right-copy');
+                obj.removeClass('app-qianjin_xia').addClass('app-qianjin_r');
             }
         });
         $('#showmenu').on('click',function (){

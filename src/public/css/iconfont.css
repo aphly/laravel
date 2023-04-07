@@ -1,8 +1,8 @@
 @font-face {
   font-family: "uni"; /* Project id 2434079 */
-  src: url('iconfont.woff2?t=1680144502378') format('woff2'),
-       url('iconfont.woff?t=1680144502378') format('woff'),
-       url('iconfont.ttf?t=1680144502378') format('truetype');
+  src: url('iconfont.woff2?t=1680856131241') format('woff2'),
+       url('iconfont.woff?t=1680856131241') format('woff'),
+       url('iconfont.ttf?t=1680856131241') format('truetype');
 }
 
 .uni {
@@ -157,11 +157,15 @@
   content: "\e615";
 }
 
+.app-qianjin_r:before {
+  content: "\eca4";
+}
+
 .app-qianjin1:before {
   content: "\e600";
 }
 
-.app-qianjin2:before {
+.app-qianjin_xia:before {
   content: "\e653";
 }
 

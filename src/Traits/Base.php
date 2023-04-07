@@ -49,4 +49,5 @@ trait Base
             return $query->where('uuid', $uuid);
         }
     }
+
 }
