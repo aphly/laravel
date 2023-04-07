@@ -4,6 +4,7 @@ namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -77,6 +78,18 @@ class UploadFile extends Model
             }
         }else{
             throw new ApiException(['code'=>703,'msg'=>'Upload error']);
+        }
+    }
+
+    function canDownload($id,$uuid,$role_id){
+        $level_ids = (new Role)->hasLevelIds($role_id);
+        $info = self::where('id',$id)->dataPerm($uuid,$level_ids)->first();
+        if(!empty($info)){
+            $file_url = storage_path('app/private/'.$info->path);
+            header('Content-Type: application/octet-stream');
+            header("Content-Transfer-Encoding: Binary");
+            header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\"");
+            readfile($file_url);
         }
     }
 
