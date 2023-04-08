@@ -4,7 +4,6 @@ namespace Aphly\Laravel\Models;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -15,7 +14,7 @@ class UploadFile extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'uuid','level_id','path'
+        'uuid','level_id','path','file_type'
     ];
 
     static public $oss_url = false;

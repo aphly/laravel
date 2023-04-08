@@ -39,7 +39,7 @@ body{background-color: #f4f4f4;}
 .admin .ad_right .user_dropdown .l-xia{position:relative;top:2px;font-size:14px}
 .admin .ad_right .dropdown-menu{-webkit-box-shadow:0 5px 12px rgba(0,0,0,0.1);box-shadow:0 5px 12px rgba(0,0,0,0.1);border:none}
 .admin .ad_right .dropdown-divider{border-top-color:#eff2f7}
-.admin .ad_right .dropdown-item{font-size: 12px;}
+.admin .ad_right .dropdown-item{line-height: 30px;padding: 0 20px;}
 
 .admin .ad_left .navbar_brand_box{background:#efefef;width: 200px;position: fixed;}
 .admin .ad_left .menu dl dd a{font-weight: 600;cursor: pointer;display:block;position:relative;-webkit-transition:all .4s;transition:all .4s}
