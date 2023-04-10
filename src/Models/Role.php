@@ -13,7 +13,7 @@ class Role extends Model
     protected $table = 'admin_role';
     public $timestamps = false;
 
-    const MANAGER = 2;
+    const reg_id = 3;
 
     protected $fillable = [
         'name','desc','status','sort','module_id','data_perm','level_id'

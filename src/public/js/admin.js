@@ -31,20 +31,10 @@ class MyTree{
                                             <div class="tree_del" data-id="${_this.op.select[0].data.id}">删除</div>
                                         </div>`)
             }else{
-                if($role){
-                    $('#tree_btn').html(`<div class="d-flex tree_form_btn justify-content-between">
-                                            <div class="d-flex">
-                                                <span class="tree_edit" data-id="${_this.op.select[0].data.id}">编辑</span>
-                                                <a class="badge badge-success ajax_get" data-href="/admin/role/${_this.op.select[0].data.id}/permission">授权</a>
-                                                <a class="badge badge-success ajax_get" data-href="/admin/role/${_this.op.select[0].data.id}/menu">菜单</a>
-                                            </div> <div class="tree_del" data-id="${_this.op.select[0].data.id}">删除</div>
-                                        </div>`)
-                }else{
-                    $('#tree_btn').html(`<div class="d-flex tree_form_btn justify-content-between">
+                $('#tree_btn').html(`<div class="d-flex tree_form_btn justify-content-between">
                                                 <div class="d-flex"><span class="tree_edit" data-id="${_this.op.select[0].data.id}">编辑</span></div>
                                                 <div class="tree_del" data-id="${_this.op.select[0].data.id}">删除</div>
                                             </div>`)
-                }
             }
         }else{
             $('#tree_btn').html(`<div class="d-flex tree_form_btn"><span class="tree_add" data-pid="${_this.op.root}">新增</span></div>`)

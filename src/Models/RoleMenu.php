@@ -23,7 +23,7 @@ class RoleMenu extends Model
     public function getMenu($role_id){
         return self::leftJoin('admin_menu','admin_menu.id','=','admin_role_menu.menu_id')
             ->where('admin_role_menu.role_id',$role_id)
-            ->where('admin_menu.status',1)->get()->toArray();
+            ->where('admin_menu.status',1)->orderBy('sort','desc')->get()->toArray();
     }
 
 }
