@@ -29,14 +29,18 @@ class Module extends Model
 
     public function install($module_id){
         $paths = dirname($this->dir).'/migrations';
-        $migrator = app('migrator');
-        $migrator->run($paths);
+        if(is_dir($paths)){
+            $migrator = app('migrator');
+            $migrator->run($paths);
+        }
     }
 
     public function uninstall($module_id){
         $paths =  dirname($this->dir).'/migrations';
-        $migrator = app('migrator');
-        $migrator->rollback($paths);
+        if(is_dir($paths)) {
+            $migrator = app('migrator');
+            $migrator->rollback($paths);
+        }
 
         $admin_menu = DB::table('admin_menu')->where('module_id',$module_id);
         $arr = $admin_menu->get()->toArray();
