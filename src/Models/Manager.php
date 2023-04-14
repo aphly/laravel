@@ -18,6 +18,8 @@ class Manager extends Authenticatable
     protected $primaryKey = 'uuid';
     public $incrementing = false;
     static public $_uuid = 0;
+
+    static public $user = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -63,6 +65,19 @@ class Manager extends Authenticatable
             }
         }else{
             return self::$_uuid;
+        }
+    }
+
+    static function user(){
+        if(!self::$user){
+            $auth = Auth::guard('manager');
+            if($auth->check()){
+                return self::$user = $auth->user();
+            }else{
+                return false;
+            }
+        }else{
+            return self::$user;
         }
     }
 

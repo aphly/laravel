@@ -41,7 +41,7 @@ trait Base
         })->toArray());
     }
 
-    public function scopeDataPerm($query,$uuid,$level_ids)
+    public function scopeDataPerm($query,$uuid,$level_ids=[])
     {
         if($level_ids){
             return $query->whereIn('level_id', $level_ids);
