@@ -21,14 +21,11 @@ class UploadFile extends Model
 
     public $size; //M
 
-    public $limit;
-
     public $allow_ext;
 
-    public function __construct($size=0.5,$limit=0,$allow_ext=['png','jpg','jpeg','gif','webp'])
+    public function __construct($size=0.5,$allow_ext=['png','jpg','jpeg','gif','webp'])
     {
         $this->size = $size;
-        $this->limit = $limit;
         $this->allow_ext = $allow_ext;
         parent::__construct();
     }
@@ -46,9 +43,9 @@ class UploadFile extends Model
         return $arr[0]->store($arr[1]);
     }
 
-    function uploads($files,$path){
-        if($this->limit && count($files)>$this->limit){
-            throw new ApiException(['code'=>704,'msg'=>'Limit of '.$this->limit.' files']);
+    function uploads($limit,$files,$path){
+        if($limit && count($files)>$limit){
+            throw new ApiException(['code'=>704,'msg'=>'Limit of '.$limit.' files']);
         }
         $res = $check = [];
         foreach ($files as $file){

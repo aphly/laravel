@@ -274,39 +274,39 @@ let getList = {
     timer:true,
     get() {
         if (!this.isGet || this.page>this.last_page) {
-          if(this.page>this.last_page){
-            $(this.loading_div).html(this.loading_nothing);
-          }
-          return;
+            if(this.page>this.last_page){
+                $(this.loading_div).html(this.loading_nothing);
+            }
+            return;
         }
         this.isGet = false;
         let _this = this;
         $(_this.loading_div).html(_this.loading_html);
         clearTimeout(_this.timer);
         _this.timer = setTimeout(function() {
-          $.ajax({
-            url:_this.url+_this.page,
-            success:function (res) {
-              window[_this.callback](res,_this);
-              _this.page++;
-            },
-            complete:function () {
-              _this.isGet = true;
-              $(_this.loading_div).html(_this.loading_more);
-            }
-          })
+            $.ajax({
+                url:_this.url+_this.page,
+                success:function (res) {
+                    window[_this.callback](res,_this);
+                    _this.page++;
+                },
+                complete:function () {
+                    _this.isGet = true;
+                    $(_this.loading_div).html(_this.loading_more);
+                }
+            })
         }, _this.timeout);
     },
     init(params){
-      for(let i in params){
-        this[i] = params[i];
-      }
-      let _this = this
-      $(window).scroll(function() {
-        if (($(window).height() + $(window).scrollTop() + 60) >= $(document).height()) {
-          _this.get()
+        for(let i in params){
+            this[i] = params[i];
         }
-      });
+        let _this = this
+        $(window).scroll(function() {
+            if (($(window).height() + $(window).scrollTop() + 60) >= $(document).height()) {
+                _this.get()
+            }
+        });
     }
 };
 
@@ -329,13 +329,11 @@ function debounce_fn(func,delay=1000,...args) {
 }
 
 class img_js {
-    constructor(imgFileList=[]) {
-        this.imgFileList=imgFileList;
-    }
     handle(files,callback,op={
         max_size:0.5,quality:0.8,scale_d:0.6,max_w:1000,max_h:1700
     }){
         let _this = this
+        _this.imgFileList = [];
         for( let i in files){
             let pettern = /^image/;
             if (pettern.test(files[i].type)) {
