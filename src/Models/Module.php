@@ -42,6 +42,9 @@ class Module extends Model
             $migrator->rollback($paths);
         }
 
+        DB::table('admin_level')->where('module_id',$module_id)->delete();
+        DB::table('admin_role')->where('module_id',$module_id)->delete();
+
         $admin_menu = DB::table('admin_menu')->where('module_id',$module_id);
         $arr = $admin_menu->get()->toArray();
         if($arr){
