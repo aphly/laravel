@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class Email implements ShouldQueue
@@ -31,7 +32,7 @@ class Email implements ShouldQueue
     public function __construct(
         public $email,
         public $mail_obj,
-        public $queue_priority,
+        public $queue_priority='email',
     ){
         if($queue_priority=='email_vip'){
             $this->onQueue('email_vip');

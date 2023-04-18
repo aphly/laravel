@@ -2,6 +2,7 @@
 
 namespace Aphly\Laravel\Traits;
 
+use Aphly\Laravel\Models\Manager;
 use DateTimeInterface;
 
 trait Base
@@ -44,10 +45,14 @@ trait Base
     public function scopeDataPerm($query,$uuid,$level_ids=[])
     {
         if($level_ids){
-            return $query->whereIn('level_id', $level_ids);
+            return $query->whereIn('level_id', $level_ids)->with('manager');
         }else{
-            return $query->where('uuid', $uuid);
+            return $query->where('uuid', $uuid)->with('manager');
         }
     }
 
+    public function manager()
+    {
+        return $this->hasOne(Manager::class,'uuid','uuid');
+    }
 }

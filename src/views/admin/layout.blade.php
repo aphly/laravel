@@ -127,7 +127,7 @@
     }
 
     function save_form_file_res(res, that) {
-        alert_msg(res)
+        save_form_res(res,that)
     }
 
     $(function (){
