@@ -11,10 +11,10 @@ class UploadFile extends Model
 {
     use HasFactory;
     protected $table = 'admin_upload_file';
-    public $timestamps = false;
+    //public $timestamps = false;
 
     protected $fillable = [
-        'uuid','level_id','path','file_type'
+        'uuid','level_id','path','file_type','file_size'
     ];
 
     static public $oss_url = false;
@@ -43,6 +43,16 @@ class UploadFile extends Model
         return $arr[0]->store($arr[1]);
     }
 
+    function uploadSaveDb($file,$path){
+        $arr = $this->_upload($file,$path);
+        $input['path'] = $arr[0]->store($arr[1]);
+        $input['uuid'] = Manager::user()->uuid;
+        $input['level_id'] = Manager::user()->level_id;
+        $input['file_type'] = $arr[2];
+        $input['file_size'] = $arr[3];
+        return self::create($input);
+    }
+
     function uploads($limit,$files,$path){
         if($limit && count($files)>$limit){
             throw new ApiException(['code'=>704,'msg'=>'Limit of '.$limit.' files']);
@@ -68,7 +78,7 @@ class UploadFile extends Model
                 if(!in_array($ext,$this->allow_ext)){
                     throw new ApiException(['code'=>700,'msg'=>'Format not supported']);
                 }
-                return [$file,$path.'/'.date('Ym').'/'.date('d').'/'.date('Hi')];
+                return [$file,$path.'/'.date('Ym').'/'.date('d').'/'.date('Hi'),$ext,$size];
             }else{
                 throw new ApiException(['code'=>702,'msg'=>'Upload error']);
             }
@@ -77,16 +87,17 @@ class UploadFile extends Model
         }
     }
 
-    function canDownload($id,$uuid,$role_id){
-        $level_ids = (new Role)->hasLevelIds($role_id);
-        $info = self::where('id',$id)->dataPerm($uuid,$level_ids)->first();
-        if(!empty($info)){
-            $file_url = storage_path('app/private/'.$info->path);
-            header('Content-Type: application/octet-stream');
-            header("Content-Transfer-Encoding: Binary");
-            header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\"");
-            readfile($file_url);
+    static function formatSize($size){
+        if ($size >= 1073741824){
+            $size = round($size / 1073741824 * 100) / 100 . ' GB';
+        }elseif ($size >= 1048576){
+            $size = round($size / 1048576 * 100) / 100 . ' MB';
+        }elseif ($size >= 1024){
+            $size = round($size / 1024 * 100) / 100 . ' KB';
+        }else{
+            $size = $size . ' Bytes';
         }
+        return $size;
     }
 
 }

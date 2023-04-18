@@ -24,4 +24,5 @@ Route::middleware(['web'])->group(function () {
     Route::get('oauth/{driver}/callback', 'Aphly\Laravel\Controllers\OAuthController@handleProviderCallback');
     Route::get('oauth/{driver}', 'Aphly\Laravel\Controllers\OAuthController@redirectToProvider');
 
+    Route::get('upload_file/download', 'Aphly\Laravel\Controllers\UploadFileController@download');
 });

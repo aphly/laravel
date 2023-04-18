@@ -2,6 +2,7 @@
 
 namespace Aphly\Laravel\Traits;
 
+use Aphly\Laravel\Models\Level;
 use Aphly\Laravel\Models\Manager;
 use DateTimeInterface;
 
@@ -42,17 +43,24 @@ trait Base
         })->toArray());
     }
 
-    public function scopeDataPerm($query,$uuid,$level_ids=[])
-    {
-        if($level_ids){
-            return $query->whereIn('level_id', $level_ids)->with('manager');
-        }else{
-            return $query->where('uuid', $uuid)->with('manager');
-        }
-    }
-
     public function manager()
     {
         return $this->hasOne(Manager::class,'uuid','uuid');
     }
+
+    public function level()
+    {
+        return $this->hasOne(Level::class,'id','level_id');
+    }
+
+    public function scopeDataPerm($query,$uuid,$level_ids=[])
+    {
+        if($level_ids){
+            return $query->whereIn('level_id', $level_ids)->with('manager')->with('level');
+        }else{
+            return $query->where('uuid', $uuid)->with('manager')->with('level');
+        }
+    }
+
+
 }
