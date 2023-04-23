@@ -4,6 +4,7 @@ namespace Aphly\Laravel\Traits;
 
 use Aphly\Laravel\Models\Level;
 use Aphly\Laravel\Models\Manager;
+use Aphly\Laravel\Models\Module;
 use DateTimeInterface;
 
 trait Base
@@ -51,6 +52,11 @@ trait Base
     public function level()
     {
         return $this->hasOne(Level::class,'id','level_id');
+    }
+
+    public function module()
+    {
+        return $this->hasOne(Module::class,'id','module_id');
     }
 
     public function scopeDataPerm($query,$uuid,$level_ids=[])

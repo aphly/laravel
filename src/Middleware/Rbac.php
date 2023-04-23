@@ -4,7 +4,7 @@ namespace Aphly\Laravel\Middleware;
 
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Models\RoleMenu;
-use Aphly\Laravel\Models\RolePermission;
+use Aphly\Laravel\Models\RoleApi;
 use Illuminate\Http\Request;
 use Closure;
 
@@ -37,12 +37,12 @@ class Rbac
                     return true;
                 }
             }
-            $rolePermission = RolePermission::leftJoin('admin_permission','admin_permission.id','=','admin_role_permission.permission_id')
-                ->where('admin_role_permission.role_id',$role_id)
-                ->where('admin_permission.status',1)->get()->toArray();
-            if($rolePermission){
-                $permission_route = array_filter(array_column($rolePermission,'route'));
-                if(in_array($uri,$permission_route)){
+            $roleApi = RoleApi::leftJoin('admin_api','admin_api.id','=','admin_role_api.api_id')
+                ->where('admin_role_api.role_id',$role_id)
+                ->where('admin_api.status',1)->get()->toArray();
+            if($roleApi){
+                $api_route = array_filter(array_column($roleApi,'route'));
+                if(in_array($uri,$api_route)){
                     return true;
                 }
             }
