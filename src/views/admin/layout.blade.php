@@ -151,15 +151,34 @@
         $("#iload").on('click','.ajax_post',function (e){
             e.preventDefault()
             e.stopPropagation()
-            let url = $(this).attr('data-href');
+            const that = $(this)
+            let url = that.attr('data-href');
+            let load = that.attr('data-load');
+            let btn_html = that.html();
             if(url){
-                $.ajax({
-                    url,dataType: "json",
-                    success: function(res){
-                        iload(res.data.redirect);
-                        alert_msg(res)
-                    }
-                })
+                if(load){
+                    $.ajax({
+                        url,dataType: "json",
+                        beforeSend:function () {
+                            that.attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
+                        },
+                        success: function(res){
+                            iload(res.data.redirect);
+                            alert_msg(res)
+                        },
+                        complete:function(XMLHttpRequest,textStatus){
+                            //that.removeAttr('disabled').html(btn_html);
+                        }
+                    })
+                }else{
+                    $.ajax({
+                        url,dataType: "json",
+                        success: function(res){
+                            iload(res.data.redirect);
+                            alert_msg(res)
+                        }
+                    })
+                }
             }
         })
 
