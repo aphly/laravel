@@ -1,8 +1,8 @@
 @font-face {
   font-family: "uni"; /* Project id 2434079 */
-  src: url('iconfont.woff2?t=1682560065133') format('woff2'),
-       url('iconfont.woff?t=1682560065133') format('woff'),
-       url('iconfont.ttf?t=1682560065133') format('truetype');
+  src: url('iconfont.woff2?t=1683783439355') format('woff2'),
+       url('iconfont.woff?t=1683783439355') format('woff'),
+       url('iconfont.ttf?t=1683783439355') format('truetype');
 }
 
 .uni {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.app-touxiang:before {
+  content: "\e627";
 }
 
 .app-jian1:before {
