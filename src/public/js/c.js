@@ -10,6 +10,21 @@ function checkAll(_this) {
     $("input[type='checkbox']").prop("checked", $(_this).prop('checked'));
 }
 
+function _alert_msg(msg,reload=false,time=2000){
+    $("#alert_msg").remove();
+    let html = '<div id="alert_msg"><div class="alert_msg"><div class="alert_msg_header"><strong class="mr-auto">Tips</strong><small></small><span onclick="$(\'#alert_msg\').remove();">×</span></div><div class="alert_msg_body">'+msg+'</div></div></div>';
+    let body = $('body');
+    body.append(html);
+    let alert_msg = $("#alert_msg");
+    _autosize(alert_msg)
+    setTimeout(function () {
+        alert_msg.remove()
+        if(reload){
+            location.reload()
+        }
+    },time);
+}
+
 function alert_msg(res,redirect=false,time=2000){
     $('#loading').css('z-index',-1);
     $("#alert_msg").remove();
@@ -94,7 +109,7 @@ function treeData(data,select_ids=0) {
 }
 
 function in_array(search,array){
-    for(var i in array){
+    for(let i in array){
         if(array[i]==search){
             return true;
         }
@@ -266,7 +281,7 @@ let getList = {
     loading_div:'.loading',
     data_div:'#list',
     callback:'makeHtml',
-    url:'http://test2.com/zone?page=',
+    url:'/zone?page=',
     loading_nothing:'nothing',
     loading_html:'loading',
     loading_more:'more',
@@ -329,9 +344,12 @@ function debounce_fn(func,delay=1000,...args) {
 }
 
 class img_js {
-    handle(files,callback,op={
+    constructor(op={
         max_size:0.5,quality:0.8,scale_d:0.6,max_w:1000,max_h:1700
-    }){
+    }) {
+        this.op = op
+    }
+    handle(files,callback){
         let _this = this
         _this.imgFileList = [];
         for( let i in files){
@@ -342,10 +360,10 @@ class img_js {
                 fr.readAsDataURL(files[i]);
                 fr.onload = function (res) {
                     img.src = this.result;
-                    if (files[i].size > 1024*1024*op.max_size) {
+                    if (files[i].size > 1024*1024*_this.op.max_size) {
                         _this._handle(this.result, function (base64) {
                             _this.imgFileList[i] = _this.dataURLtoFile(base64, files[i].name)
-                        },op)
+                        },_this.op)
                     } else {
                         _this.imgFileList[i] = files[i];
                     }
