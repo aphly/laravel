@@ -40,6 +40,9 @@ class LevelPath extends Model
     }
 
     public function rebuild($pid = 0) {
+        if(!$pid){
+            self::truncate();
+        }
         $levelData = Level::where('pid',$pid)->get();
         foreach ($levelData as $val){
             self::where('level_id',$val->id)->delete();

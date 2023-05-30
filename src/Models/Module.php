@@ -39,7 +39,13 @@ class Module extends Model
         $paths =  dirname($this->dir).'/migrations';
         if(is_dir($paths)) {
             $migrator = app('migrator');
-            $migrator->rollback($paths);
+            $files = $migrator->getMigrationFiles($paths);
+            $firstKey = array_key_first($files);
+            $batchInfo = DB::table('migrations')->where('migration',$firstKey)->first();
+            if(!empty($batchInfo)){
+                $options['batch']= $batchInfo->batch;
+                $migrator->rollback($paths,$options);
+            }
         }
 
         DB::table('admin_level')->where('module_id',$module_id)->delete();
