@@ -15,7 +15,7 @@ class Menu extends Model
 
     protected $fillable = [
         'name','route','pid','icon','type',
-        'status','sort','module_id'
+        'status','sort','module_id','uuid'
     ];
 
     public function getMenuById($id)

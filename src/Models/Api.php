@@ -13,7 +13,7 @@ class Api extends Model
 
     protected $fillable = [
         'name','route','pid','type','status',
-        'sort','level_id','module_id'
+        'sort','level_id','module_id','uuid'
     ];
 
 

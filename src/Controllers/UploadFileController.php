@@ -15,4 +15,6 @@ class UploadFileController extends AdminController
         $file_url = storage_path('app/'.$info->path);
         return response()->download($file_url,'download.'.$info->file_type);
     }
+
+
 }

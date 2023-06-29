@@ -11,7 +11,7 @@ class Config extends Model
     protected $table = 'admin_config';
     public $timestamps = false;
     protected $fillable = [
-        'type','key','value','level_id','name','module_id'
+        'type','key','value','level_id','name','module_id','uuid'
     ];
 
     function saveInput($request){

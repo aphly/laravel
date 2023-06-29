@@ -14,7 +14,7 @@ class Level extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','pid','sort','status','type','module_id'
+        'name','pid','sort','status','type','module_id','uuid'
     ];
 
     public function findAll() {
