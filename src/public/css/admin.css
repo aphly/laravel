@@ -34,7 +34,7 @@ li.liheader{background: #f5f5f6 !important;font-weight: 600; border: none;}
 a{ color: #212529;cursor: pointer;}
 body{background-color: #f4f4f4;}
 
-.admin .ad_right .user_avatar{height:36px;width:36px;background-color:#f1f5f7;padding:3px}
+.admin .ad_right .user_avatar{height:36px;width:36px;background-color:#f1f5f7;padding:3px;border-radius: 50%;}
 .admin .ad_right .user_name{width:60px;margin-left:10px}
 .admin .ad_right .user_dropdown .l-xia{position:relative;top:2px;font-size:14px}
 .admin .ad_right .dropdown-menu{-webkit-box-shadow:0 5px 12px rgba(0,0,0,0.1);box-shadow:0 5px 12px rgba(0,0,0,0.1);border:none}
@@ -78,7 +78,7 @@ button.badge{border: none;}
 .admin .ad_right .user_dropdown{width: 160px;display:flex;height:70px;justify-content:center;align-items:center}
 
 .admin .ad_right .portal{display: block;line-height: 70px;margin-left: 20px;}
-.admin .ad_right .setting{display: flex;width: 30px;padding-right: 10px;justify-content: center;align-items: center;height: 70px;}
+.admin .ad_right .setting{display: flex;width: 50px;padding-right: 10px;justify-content: center;align-items: center;height: 70px;}
 
 .liheader{color:#505d69;background-color:#f8f9fa}
 

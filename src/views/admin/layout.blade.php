@@ -55,6 +55,22 @@
                 </div>
                 <div class="d-flex">
                     <div class="dropdown">
+                        <a style="display: block" href="#" >
+                            <div class="setting">
+                                <i class="uni app-gonggao" style="font-size: 20px"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown">
+                        <a style="display: block" href="#" >
+                            <div class="setting">
+                                <i class="uni app-lingdang" style="font-size: 20px"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown">
                         <a style="display: block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user_dropdown">
                                 <img class="lazy user_avatar" @if($res['user']['gender']==1) src="{{url('static/base/img/man.png')}}" @else src="{{url('static/base/img/woman.png')}}" @endif data-original="">
@@ -69,16 +85,7 @@
                             <a class="dropdown-item text-danger layout_ajax_post " href="/admin/logout">退出</a>
                         </div>
                     </div>
-                    <div class="dropdown d-none">
-                        <a style="display: block" href="#" role="button" data-target=”#dropdownsettingbox” id="dropdownsetting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="setting">
-                                <i class="uni app-xitong"></i>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" id="dropdownsettingbox" aria-labelledby="dropdownsetting">
 
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="iload_box">
