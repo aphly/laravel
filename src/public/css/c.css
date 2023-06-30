@@ -4,6 +4,9 @@ html,body{min-height: 100%;}
 a:hover,a{text-decoration: none; }
 ul,li,p,dl,dd{padding: 0;margin: 0;}
 input:focus{ outline:none }
+.btn-my_primary{background-color: #92cdb9;border-color: #92cdb9;color:#fff;}
+.btn-my_primary.focus, .btn-my_primary:focus{background-color: #92cdb9;border-color: #92cdb9;box-shadow:none;}
+.btn-my_primary:hover{color:#fff;background: #76bda5;}
 
 .loading-pointer-inner{ margin: 0 auto;display: flex;justify-content: center;width:200px;height:50px}
 .loading-pointer-inner .pointer{width:10px;height:10px;margin:20px;background-color:#cccad3;border-radius:50%}
@@ -49,7 +52,7 @@ input:focus{ outline:none }
     100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
 }
 @keyframes btn_loading{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}
-     100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
+    100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
 }
 .code_img{display: flex;justify-content: space-between;}
 .code_img img{width: 100px;margin-left: 10px;border-radius: 4px;cursor: pointer;}

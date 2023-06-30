@@ -13,7 +13,4 @@ class Notice extends Model
         'title','content','viewed','status','uuid','level_id'
     ];
 
-    function show($news_id){
-        return self::where(['id'=>$news_id,'status'=>1])->firstOrError();
-    }
 }

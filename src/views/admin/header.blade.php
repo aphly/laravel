@@ -20,5 +20,5 @@
 <style>
     #editor—wrapper{border: 1px solid #ced4da;border-radius: 2px;}
     #editor-toolbar{border-bottom: 1px solid #ced4da;}
-    #editor-container{border-bottom: 1px solid #ced4da;min-height: 300px;}
+    #editor-container{border-bottom: 1px solid #ced4da;min-height: 400px;}
 </style>
