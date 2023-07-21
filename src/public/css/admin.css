@@ -72,7 +72,7 @@ button.badge{border: none;}
 .badge.add,.fast_add{font-size: 12px;padding: 10px 20px;}
 .badge.del{padding: 5px 10px;}
 .admin .ad_left{width:200px;}
-.admin .ad_left .menu{overflow-y: auto;width:200px;bottom:0;margin-top:0;position:fixed;top:70px;background:#f1f1f1;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.08);box-shadow:0 2px 4px rgba(0,0,0,0.2)}
+.admin .ad_left .menu{overflow-y: auto;height: calc(100% - 70px);width:200px;bottom:0;margin-top:0;position:fixed;top:70px;background:#f1f1f1;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.08);box-shadow:0 2px 4px rgba(0,0,0,0.2)}
 .admin .ad_left .logo{color:#cf6646;line-height:70px;display:block;text-align:center;font-size:24px;FONT-WEIGHT:600}
 
 .admin .ad_right{width:calc(100% - 200px);}
@@ -151,10 +151,9 @@ button.badge{border: none;}
     .admin .ad_left{width:100%;height: 100%;}
     .admin .ad_right{width:100%;}
     .admin .ad_right .topbar{width:100%;height: 50px;position:fixed;top:0;right:0;background-color:#fff;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.08);box-shadow:0 2px 4px rgba(0,0,0,0.08)}
-    .admin .ad_left .menu{z-index: 100;position: fixed;top: 50px;left: 0;height: 100%;overflow-y: auto;width:200px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.08);box-shadow:0 2px 4px rgba(0,0,0,0.08)}
+    .admin .ad_left .menu{z-index: 100;height: calc(100% - 50px);position: fixed;top: 50px;left: 0;overflow-y: auto;width:200px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.08);box-shadow:0 2px 4px rgba(0,0,0,0.08)}
     .admin .ad_left .menuclose{z-index: 100;position: fixed;top: 50px;right: 0;width:calc(100% - 200px);height: 100%;background: rgba(100,100,100,0.3);}
     .admin .ad_left .logo{color:#fff;line-height:50px;display:block;text-align:center;font-size:32px;FONT-WEIGHT:600}
-
     .admin .ad_right .portal{display: block;line-height: 50px;margin-left: 20px;}
     .admin .ad_right .setting{display: flex;width: 30px;padding-right: 10px;justify-content: center;align-items: center;height: 50px;}
     .admin .ad_right .user_dropdown{width: 160px;display:flex;height:50px;justify-content:center;align-items:center}
