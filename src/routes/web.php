@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('center')->middleware(['web'])->group(function () {
     Route::get('seccode', 'Aphly\Laravel\Controllers\SeccodeController@index');
     Route::get('seccode/{code}', 'Aphly\Laravel\Controllers\SeccodeController@check');
-    Route::post('statistics', 'Aphly\Laravel\Controllers\StatisticsController@add');
 });
 
 Route::middleware(['web'])->group(function () {
