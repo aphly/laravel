@@ -40,8 +40,8 @@ class Module extends Model
         if(is_dir($paths)) {
             $migrator = app('migrator');
             $files = $migrator->getMigrationFiles($paths);
-            $firstKey = array_key_first($files);
-            $batchInfo = DB::table('migrations')->where('migration',$firstKey)->first();
+            $keys = array_keys($files);
+            $batchInfo = DB::table('migrations')->whereIn('migration',$keys)->first();
             if(!empty($batchInfo)){
                 $options['batch']= $batchInfo->batch;
                 $migrator->rollback($paths,$options);
