@@ -55,7 +55,7 @@
                 </div>
                 <div class="d-flex">
                     <div class="dropdown">
-                        <a style="display: block" href="#" >
+                        <a style="display: block" href="/admin_client/notice/index" class="linkage_nav">
                             <div class="setting">
                                 <i class="uni app-gonggao" style="font-size: 20px"></i>
                             </div>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <a style="display: block" href="#" >
+                        <a style="display: block" href="/admin_client/msg/index" class="linkage_nav">
                             <div class="setting">
                                 <i class="uni app-lingdang" style="font-size: 20px"></i>
                             </div>
@@ -324,7 +324,6 @@
             }
         });
 
-
         $("#s_nav .dj").on('click',function (e){
             e.preventDefault();
             let ajax = $("#iload");
@@ -338,6 +337,12 @@
             }else{
                 console.log('error');
             }
+        });
+
+        $(".linkage_nav").on('click',function (e){
+            e.preventDefault();
+            let href = $(this).attr('href')
+            $('#s_nav .dj[data-href="'+href+'"]').click();
         });
 
         $('.accordion .s_nav_t').on('click', function () {
