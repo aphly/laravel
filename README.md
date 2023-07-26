@@ -26,4 +26,5 @@ php8.0+<br>
 6、`php artisan route:cache`<br>
 7、`php artisan view:cache`<br>
 8、队列`php artisan queue:table`<br>
-`php artisan migrate`
+9、`php artisan migrate`
+10、`php artisan key:generate`
