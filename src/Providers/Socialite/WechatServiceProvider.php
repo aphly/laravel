@@ -9,7 +9,7 @@ class WechatServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->make('Laravel\Socialite\Contracts\Factory')->extend('wechat', function ($app) {
-            $config = $app['config']['admin.wechat'];
+            $config = $app['config']['base.wechat'];
             return new WechatProvider(
                 $app['request'], $config['client_id'],
                 $config['client_secret'], $config['redirect']

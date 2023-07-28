@@ -32,9 +32,10 @@ class Email implements ShouldQueue
     public function __construct(
         public $email,
         public $mail_obj,
-        public $queue_priority='email',
+        public $queue_priority=1,
+        public $callback=false,
     ){
-        if($queue_priority=='email_vip'){
+        if($queue_priority==1){
             $this->onQueue('email_vip');
         }else{
             $this->onQueue('email');
@@ -50,6 +51,9 @@ class Email implements ShouldQueue
     {
         if($this->email && $this->mail_obj){
             Mail::to($this->email)->send($this->mail_obj);
+            if($this->callback){
+                $this->callback->handle();
+            }
         }
     }
 }
