@@ -5,14 +5,18 @@ namespace Aphly\Laravel\Mail;
 use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Jobs\Email;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Exception;
 
 class MailSend
 {
     public bool $status;
 
     public function __construct(
-        public bool $queue=true
+        public bool $queue=true,
+        public  $appid='',
+        public  $secret=''
     ){
         $this->status = config('base.mail_status');
     }
@@ -41,5 +45,19 @@ class MailSend
                 }
             }
         }
+    }
+
+    function remote($input){
+        if($this->appid && $this->secret){
+            $input['timestamp'] = time();
+            $input['appid'] = $this->appid;
+            $input['sign'] = md5(md5($input['appid'].$input['email'].$this->secret).$input['timestamp']);
+            try{
+                $res = Http::connectTimeout(5)->post('https://email.apixn.com/email/send',$input);
+            }catch (Exception $e){
+                return $e->getMessage();
+            }
+        }
+        return '';
     }
 }
