@@ -68,3 +68,8 @@ div::-webkit-scrollbar{width: 4px;height: 12px;}
 div::-webkit-scrollbar-track { background: #efefef; border-radius: 10px;}
 div::-webkit-scrollbar-thumb {background: #ccc;border-radius: 10px;}
 /*滚动条*/
+
+table{border-collapse: collapse;margin-bottom: 10px;margin-top: 5px;}
+table,td,th {border: 1px solid #f1f1f1;}
+td,th {padding: 5px;}
+pre{padding: 10px;background: #f1f1f1;border-radius: 4px;margin-top: 5px;}
