@@ -21,7 +21,7 @@ li.liheader{background: #f5f5f6 !important;font-weight: 600; border: none;}
 .table .table_header{background: #f4f4f4;}
 .table .table_tbody{border-bottom: 1px solid #fdfdfd;}
 .table .table_tbody.viewed{color:#999;}
-.table .table_tbody:hover{background: #fafafa;}
+.table .table_tbody:hover{background: #fafafa !important;}
 .table .table_tbody:nth-child(even){background: #fdfdfd;}
 .table .table_header,.table .table_tbody,.table .table_bottom{display: flex;justify-content: space-between;line-height: 44px;}
 .table ul.table_header li,.table ul.table_tbody li{flex:0 0 100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}

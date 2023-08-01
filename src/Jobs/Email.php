@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Config;
+
 use Illuminate\Support\Facades\Mail;
 
 class Email implements ShouldQueue
@@ -34,6 +34,8 @@ class Email implements ShouldQueue
         public $queue_priority=1,
         public $callback=false,
         public $smtp=false,
+        public $mailSend=false,
+        public $is_cc=0,
     ){
         if($queue_priority==1){
             $this->onQueue('email_vip');
@@ -50,16 +52,16 @@ class Email implements ShouldQueue
     public function handle()
     {
         if($this->email && $this->mail_obj){
+            $cc = false;
             if($this->smtp){
-                Config::set('mail.mailers.smtp.host',$this->smtp->smtp_host);
-                Config::set('mail.mailers.smtp.port',$this->smtp->smtp_port);
-                Config::set('mail.mailers.smtp.encryption',$this->smtp->smtp_encryption);
-                Config::set('mail.mailers.smtp.username',$this->smtp->smtp_username);
-                Config::set('mail.mailers.smtp.password',$this->smtp->smtp_password);
-                Config::set('mail.from.address',$this->smtp->smtp_from_address);
-                Config::set('mail.from.name',$this->smtp->smtp_from_name);
+                $this->mailSend->config($this->smtp);
+                $cc = $this->is_cc?$this->smtp->cc:0;
             }
-            Mail::to($this->email)->send($this->mail_obj);
+            if($cc){
+                Mail::to($this->email)->cc($cc)->send($this->mail_obj);
+            }else{
+                Mail::to($this->email)->send($this->mail_obj);
+            }
             if($this->callback){
                 $this->callback->handle();
             }

@@ -21,22 +21,32 @@ class MailSend
         $this->status = config('base.mail_status');
     }
 
-    function do($email,$obj,$queue_priority=0,$callback=false,$smtp=false){
+    function config($smtp){
+        Config::set('mail.mailers.smtp.host',$smtp->smtp_host);
+        Config::set('mail.mailers.smtp.port',$smtp->smtp_port);
+        Config::set('mail.mailers.smtp.encryption',$smtp->smtp_encryption);
+        Config::set('mail.mailers.smtp.username',$smtp->smtp_username);
+        Config::set('mail.mailers.smtp.password',$smtp->smtp_password);
+        Config::set('mail.from.address',$smtp->smtp_from_address);
+        Config::set('mail.from.name',$smtp->smtp_from_name);
+    }
+
+    function do($email,$obj,$queue_priority=0,$callback=false,$smtp=false,$is_cc=0){
         if($this->status && $email){
             if($this->queue){
-                Email::dispatch($email, $obj,$queue_priority,$callback,$smtp);
+                Email::dispatch($email, $obj,$queue_priority,$callback,$smtp,$this,$is_cc);
             }else{
                 try{
+                    $cc = 0;
                     if($smtp){
-                        Config::set('mail.mailers.smtp.host',$smtp->smtp_host);
-                        Config::set('mail.mailers.smtp.port',$smtp->smtp_port);
-                        Config::set('mail.mailers.smtp.encryption',$smtp->smtp_encryption);
-                        Config::set('mail.mailers.smtp.username',$smtp->smtp_username);
-                        Config::set('mail.mailers.smtp.password',$smtp->smtp_password);
-                        Config::set('mail.from.address',$smtp->smtp_from_address);
-                        Config::set('mail.from.name',$smtp->smtp_from_name);
+                        $this->config($smtp);
+                        $cc = $is_cc?$smtp->cc:0;
                     }
-                    Mail::to($email)->send($obj);
+                    if($cc){
+                        Mail::to($email)->cc($cc)->send($obj);
+                    }else{
+                        Mail::to($email)->send($obj);
+                    }
                     if($callback){
                         $callback->handle();
                     }
