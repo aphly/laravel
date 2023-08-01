@@ -12,11 +12,11 @@ use PHPUnit\Exception;
 class MailSend
 {
     public bool $status;
+    public  $appid='';
+    public  $secret='';
 
     public function __construct(
-        public bool $queue=true,
-        public  $appid='',
-        public  $secret=''
+        public bool $queue=true
     ){
         $this->status = config('base.mail_status');
     }
@@ -61,9 +61,10 @@ class MailSend
         if($this->appid && $this->secret){
             $input['timestamp'] = time();
             $input['appid'] = $this->appid;
-            $input['sign'] = md5(md5($input['appid'].$input['email'].$this->secret).$input['timestamp']);
+            $input['sign'] = md5(md5($input['appid'].$input['email'].$this->secret.$input['type'].$input['queue_priority'].$input['is_cc']).$input['timestamp']);
             try{
                 $res = Http::connectTimeout(5)->post('https://email.apixn.com/email/send',$input);
+                return $res->body();
             }catch (Exception $e){
                 return $e->getMessage();
             }
