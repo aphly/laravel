@@ -44,7 +44,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             if (!empty($info)) {
                 return $info;
             }else{
-                throw new ApiException(['code'=>1,'msg'=>'error']);
+                throw new ApiException(['code'=>1,'msg'=>'First Error']);
             }
         });
 

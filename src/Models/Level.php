@@ -17,11 +17,16 @@ class Level extends Model
         'name','pid','sort','status','type','module_id','uuid'
     ];
 
-    public function findAll() {
-        return Cache::rememberForever('level', function (){
+    public function findAll($cache=true) {
+        if($cache){
+            return Cache::rememberForever('level', function (){
+                $level = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
+                return Helper::getTree($level, true);
+            });
+        }else{
             $level = self::where('status', 1)->orderBy('sort', 'desc')->get()->toArray();
             return Helper::getTree($level, true);
-        });
+        }
     }
 
 
