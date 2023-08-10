@@ -141,7 +141,15 @@
         iload('/admin/home/index');
         $('.layout_ajax_post').click(function (e) {
             e.preventDefault();
-            let url = $(this).attr('href');
+            const that = $(this)
+            let confirm_s = that.data('confirm')
+            if(confirm_s){
+                let msg = "确定吗？";
+                if (confirm(msg)!==true){
+                    return false;
+                }
+            }
+            let url = that.attr('href');
             if(url){
                $.ajax({
                     url,dataType: "json",
@@ -159,6 +167,13 @@
             e.preventDefault()
             e.stopPropagation()
             const that = $(this)
+            let confirm_s = that.data('confirm')
+            if(confirm_s){
+                let msg = "确定吗？";
+                if (confirm(msg)!==true){
+                    return false;
+                }
+            }
             let url = that.attr('data-href');
             let load = that.attr('data-load');
             let btn_html = that.html();
@@ -203,6 +218,13 @@
 
         $("#iload").on('submit','.save_form',function (){
             const that = $(this)
+            let confirm_s = that.data('confirm')
+            if(confirm_s){
+                let msg = "确定吗？";
+                if (confirm(msg)!==true){
+                    return false;
+                }
+            }
             const fn = that.data('fn') || 'save_form_res'
             if(that[0].checkValidity()===false){
             }else{
@@ -242,6 +264,13 @@
 
         $("#iload").on('submit','.save_form_file',function (){
             const that = $(this)
+            let confirm_s = that.data('confirm')
+            if(confirm_s){
+                let msg = "确定吗？";
+                if (confirm(msg)!==true){
+                    return false;
+                }
+            }
             let formData = new FormData(that[0]);
             let url = that.attr("action");
             let type = that.attr("method");
