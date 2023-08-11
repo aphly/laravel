@@ -4,7 +4,7 @@ namespace Aphly\Laravel\Models;
 
 class Breadcrumb
 {
-    static function render($arr){
+    static function render($arr,$admin=true){
         $new_arr = [];
         foreach ($arr as $val){
             if(empty($val['href'])){
@@ -17,6 +17,10 @@ class Breadcrumb
         }
         array_pop($new_arr);
         $res['arr'] = $new_arr;
+        $res['admin'] = $admin;
         return view('laravel::admin.breadcrumb', ['res' => $res]);
+
     }
+
+
 }

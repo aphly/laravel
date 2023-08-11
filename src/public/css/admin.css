@@ -135,9 +135,9 @@ button.badge{border: none;}
 .tree_box{position: relative;width: 100%;display: none;}
 .tree_box .tree_p{position: absolute;width: 100%;background: #fff;box-shadow: 0 1px 4px rgba(24,38,16,0.1);height: 200px;overflow-y: auto;}
 
-.mybreadcrumb li.app-qianjin_r{color: #999;margin: 0 5px;}
-.mybreadcrumb li.no_href{color: #666;}
-.mybreadcrumb li.href a{color: #333;}
+.ad_breadcrumb li.app-qianjin_r{color: #999;margin: 0 5px;}
+.ad_breadcrumb li.no_href{color: #666;}
+.ad_breadcrumb li.href a{color: #333;}
 
 .detail_title{  text-align: center;font-size: 16px; padding: 20px 0;}
 .detail_content{ font-size: 14px; }
