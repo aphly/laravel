@@ -428,3 +428,31 @@ class img_js {
         return new File([u8arr], fileName, {type:mime});
     }
 }
+
+function div_fly(obj1,obj2,callback){
+    let cart_jq = obj2.offset()
+    let left = cart_jq.left
+    let top = cart_jq.top
+    let fly_id = 'fly'
+    $('#'+fly_id).remove()
+    let _offset = obj1.offset()
+    let this_left = _offset.left+obj1.width()/2-8
+    let this_top = _offset.top+obj1.height()/2-8
+    let html = '<div id="'+fly_id+'" style="position: fixed;left:'+this_left+'px;top:'+this_top+'px;background: '+obj1.css('background')+';' +
+        'width: '+obj2.width()+'px;height: '+obj2.height()+'px;border-radius: 50%;z-index: 999999"></div>'
+    $('body').append(html)
+    $.easing.x = function (pro,t){
+        return (t/900)*(t/900)
+    }
+    $.easing.y = function (pro){
+        return pro
+    }
+    let obj = $('#'+fly_id)
+    obj.stop(true,false).animate({
+        left: [left,'x'],
+        top: [top,'y']
+    },900,'swing',function () {
+        obj.remove()
+        if (callback) { callback() }
+    })
+}
