@@ -73,3 +73,5 @@ table{border-collapse: collapse;margin-bottom: 10px;margin-top: 5px;}
 table,td,th {border: 1px solid #f1f1f1;}
 td,th {padding: 5px;}
 pre{padding: 10px;background: #f1f1f1;border-radius: 4px;margin-top: 5px;}
+
+.ad_breadcrumb li{max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
