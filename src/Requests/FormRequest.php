@@ -22,9 +22,9 @@ class FormRequest extends baseRequest
         ];
     }
 
-    public function validate($arr)
+    public function validate($arr,$rules=[],$msg=[])
     {
-        $validator = \Illuminate\Support\Facades\Validator::make($arr,$this->rules(),$this->messages());
+        $validator = \Illuminate\Support\Facades\Validator::make($arr,!empty($rules)?$rules:$this->rules(),!empty($msg)?$msg:$this->messages());
         if ($validator->fails()) {
             $this->fail($validator);
         }
