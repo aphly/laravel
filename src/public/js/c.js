@@ -430,14 +430,16 @@ class img_js {
 }
 
 function div_fly(obj1,obj2,callback){
+    let scrollTop = $(window).scrollTop()
+    let scrollLeft = $(window).scrollLeft()
     let cart_jq = obj2.offset()
-    let left = cart_jq.left
-    let top = cart_jq.top
+    let left = cart_jq.left - scrollLeft
+    let top = cart_jq.top - scrollTop
     let fly_id = 'fly'
     $('#'+fly_id).remove()
     let _offset = obj1.offset()
-    let this_left = _offset.left+obj1.width()/2-8
-    let this_top = _offset.top+obj1.height()/2-8
+    let this_left = _offset.left+obj1.width()/2-8 - scrollLeft
+    let this_top = _offset.top+obj1.height()/2-8 - scrollTop
     let html = '<div id="'+fly_id+'" style="position: fixed;left:'+this_left+'px;top:'+this_top+'px;background: '+obj1.css('background')+';' +
         'width: '+obj2.width()+'px;height: '+obj2.height()+'px;border-radius: 50%;z-index: 999999"></div>'
     $('body').append(html)
