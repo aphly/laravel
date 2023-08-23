@@ -2,6 +2,7 @@
 return [
     'email'=>'121099327@qq.com',
     'perPage'=>'10',
+    'oss'=>true,
     //全局邮件开关
     'mail_status'=>true,
     //跨越

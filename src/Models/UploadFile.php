@@ -17,8 +17,6 @@ class UploadFile extends Model
         'uuid','level_id','path','file_type','file_size'
     ];
 
-    static public $oss_url = false;
-
     public $size; //M
 
     public $allow_ext;
@@ -32,7 +30,12 @@ class UploadFile extends Model
 
     static function getPath($file_path,$img=false){
         if($file_path){
-            return self::$oss_url?self::$oss_url.$file_path:Storage::url($file_path);
+            $disk = trim(env('FILESYSTEM_DISK'));
+            $oss_url = trim(env('OSS_URL'));
+            if($disk==='oss'){
+                return $oss_url.'/'.$file_path;
+            }
+            return Storage::url($file_path);
         }else{
             return $img?URL::asset('static/base/img/none.png'):null;
         }
