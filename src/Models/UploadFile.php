@@ -14,7 +14,7 @@ class UploadFile extends Model
     //public $timestamps = false;
 
     protected $fillable = [
-        'uuid','level_id','path','file_type','file_size'
+        'uuid','level_id','path','file_type','file_size','remote'
     ];
 
     public $size; //M
@@ -28,10 +28,13 @@ class UploadFile extends Model
         parent::__construct();
     }
 
-    static function getPath($file_path,$img=false){
+    static function getPath($file_path,$img=false,$remote=false){
         if($file_path){
-            $disk = trim(env('FILESYSTEM_DISK'));
             $oss_url = trim(env('OSS_URL'));
+            if($remote){
+                return $oss_url.'/'.$file_path;
+            }
+            $disk = trim(env('FILESYSTEM_DISK'));
             if($disk==='oss'){
                 return $oss_url.'/'.$file_path;
             }
@@ -48,6 +51,8 @@ class UploadFile extends Model
 
     function uploadSaveDb($file,$path){
         $arr = $this->_upload($file,$path);
+        $disk = trim(env('FILESYSTEM_DISK'));
+        $input['remote'] = $disk==='oss'?1:0;
         $input['path'] = $arr[0]->store($arr[1]);
         $input['uuid'] = Manager::user()->uuid;
         $input['level_id'] = Manager::user()->level_id;
