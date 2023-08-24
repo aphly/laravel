@@ -21,6 +21,8 @@ class UploadFile extends Model
 
     public $allow_ext;
 
+    public $remote_disk = 'oss';
+
     public function __construct($size=0.5,$allow_ext=['png','jpg','jpeg','gif','webp'])
     {
         $this->size = $size;
@@ -44,16 +46,25 @@ class UploadFile extends Model
         }
     }
 
-    function upload($file,$path){
+    function upload($file,$path,$remote=0){
         $arr = $this->_upload($file,$path);
-        return $arr[0]->store($arr[1]);
+        if($remote){
+            return $arr[0]->store($arr[1],$this->remote_disk);
+        }else{
+            return $arr[0]->store($arr[1]);
+        }
     }
 
-    function uploadSaveDb($file,$path){
+    function uploadSaveDb($file,$path,$remote=0){
         $arr = $this->_upload($file,$path);
-        $disk = trim(env('FILESYSTEM_DISK'));
-        $input['remote'] = $disk==='oss'?1:0;
-        $input['path'] = $arr[0]->store($arr[1]);
+        if($remote){
+            $input['remote'] = $remote;
+            $input['path'] = $arr[0]->store($arr[1],$this->remote_disk);
+        }else{
+            $disk = trim(env('FILESYSTEM_DISK'));
+            $input['remote'] = $disk===$this->remote_disk?1:0;
+            $input['path'] = $arr[0]->store($arr[1]);
+        }
         $input['uuid'] = Manager::user()->uuid;
         $input['level_id'] = Manager::user()->level_id;
         $input['file_type'] = $arr[2];
@@ -61,7 +72,7 @@ class UploadFile extends Model
         return self::create($input);
     }
 
-    function uploads($limit,$files,$path){
+    function uploads($limit,$files,$path,$remote=0){
         if($limit && count($files)>$limit){
             throw new ApiException(['code'=>704,'msg'=>'Limit of '.$limit.' files']);
         }
@@ -70,7 +81,11 @@ class UploadFile extends Model
             $check[] = $this->_upload($file,$path);
         }
         foreach ($check as $file){
-            $res[] = $file[0]->store($file[1]);
+            if($remote) {
+                $res[] = $file[0]->store($file[1],$this->remote_disk);
+            }else{
+                $res[] = $file[0]->store($file[1]);
+            }
         }
         return $res;
     }
