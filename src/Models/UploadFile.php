@@ -21,7 +21,7 @@ class UploadFile extends Model
 
     public $allow_ext;
 
-    public $remote_disk = 'oss';
+    static public $remote_disk = 'oss';
 
     public function __construct($size=0.5,$allow_ext=['png','jpg','jpeg','gif','webp'])
     {
@@ -30,39 +30,49 @@ class UploadFile extends Model
         parent::__construct();
     }
 
-    static function getPath($file_path,$img=false,$remote=false){
+    static function getPath($file_path,$remote=0,$is_img=true){
         if($file_path){
-            $oss_url = trim(env('OSS_URL'));
-            if($remote){
-                return $oss_url.'/'.$file_path;
-            }
-            $disk = trim(env('FILESYSTEM_DISK'));
-            if($disk==='oss'){
-                return $oss_url.'/'.$file_path;
-            }
-            return Storage::url($file_path);
+            $disk = $remote?self::$remote_disk:'local';
+            return Storage::disk($disk)->url($file_path);
         }else{
-            return $img?URL::asset('static/base/img/none.png'):null;
+            return $is_img?URL::asset('static/base/img/none.png'):null;
         }
     }
 
-    function upload($file,$path,$remote=0){
+    function isRemote(){
+        return trim(env('FILESYSTEM_DISK'))===self::$remote_disk?1:0;;
+    }
+
+    function upload($file,$path,$disk=false){
         $arr = $this->_upload($file,$path);
-        if($remote){
-            return $arr[0]->store($arr[1],$this->remote_disk);
+        if($disk){
+            return $arr[0]->store($arr[1],$disk);
         }else{
             return $arr[0]->store($arr[1]);
         }
     }
 
-    function uploadSaveDb($file,$path,$remote=0){
+    static function disk($remote=0){
+        if($remote===1){
+            return self::$remote_disk;
+        }
+        return 'local';
+    }
+
+    function del($path,$remote=0){
+        if($path){
+            $disk = $remote?self::$remote_disk:'local';
+            Storage::disk($disk)->delete($path);
+        }
+    }
+
+    function uploadSaveDb($file,$path,$disk=false){
         $arr = $this->_upload($file,$path);
-        if($remote){
-            $input['remote'] = $remote;
-            $input['path'] = $arr[0]->store($arr[1],$this->remote_disk);
+        if($disk){
+            $input['remote'] = $disk===self::$remote_disk?1:0;
+            $input['path'] = $arr[0]->store($arr[1],$disk);
         }else{
-            $disk = trim(env('FILESYSTEM_DISK'));
-            $input['remote'] = $disk===$this->remote_disk?1:0;
+            $input['remote'] = trim(env('FILESYSTEM_DISK'))===self::$remote_disk?1:0;
             $input['path'] = $arr[0]->store($arr[1]);
         }
         $input['uuid'] = Manager::user()->uuid;
@@ -72,7 +82,7 @@ class UploadFile extends Model
         return self::create($input);
     }
 
-    function uploads($limit,$files,$path,$remote=0){
+    function uploads($limit,$files,$path,$disk=false){
         if($limit && count($files)>$limit){
             throw new ApiException(['code'=>704,'msg'=>'Limit of '.$limit.' files']);
         }
@@ -81,8 +91,8 @@ class UploadFile extends Model
             $check[] = $this->_upload($file,$path);
         }
         foreach ($check as $file){
-            if($remote) {
-                $res[] = $file[0]->store($file[1],$this->remote_disk);
+            if($disk) {
+                $res[] = $file[0]->store($file[1],$disk);
             }else{
                 $res[] = $file[0]->store($file[1]);
             }
