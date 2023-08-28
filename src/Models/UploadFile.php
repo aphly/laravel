@@ -59,7 +59,7 @@ class UploadFile extends Model
         return 'local';
     }
 
-    function del($path,$remote=0){
+    static function del($path,$remote=0){
         if($path){
             $disk = $remote?self::$remote_disk:'local';
             Storage::disk($disk)->delete($path);
