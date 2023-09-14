@@ -11,7 +11,7 @@ return [
     ],
     //图片验证码
     'seccode_login'=>2, //0 1 2
-    'seccode_register'=>1, //0 1
+    'seccode_register'=>0, //0 1
     'seccode_forget'=>1, //0 1
     'seccode_admin_login'=>0, //0 1
 
