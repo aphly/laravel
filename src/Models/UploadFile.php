@@ -32,8 +32,11 @@ class UploadFile extends Model
 
     static function getPath($file_path,$remote=0,$is_img=true){
         if($file_path){
-            $disk = $remote?self::$remote_disk:'local';
-            return Storage::disk($disk)->url($file_path);
+            if($remote){
+                return Storage::disk(self::$remote_disk)->url($file_path);
+            }else{
+                return url(Storage::disk('local')->url($file_path));
+            }
         }else{
             return $is_img?URL::asset('static/base/img/none.png'):null;
         }
