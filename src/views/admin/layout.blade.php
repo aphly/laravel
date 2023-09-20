@@ -185,11 +185,11 @@
                             that.attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
                         },
                         success: function(res){
-                            iload(res.data.redirect);
+                            iload(load);
                             alert_msg(res)
                         },
                         complete:function(XMLHttpRequest,textStatus){
-                            //that.removeAttr('disabled').html(btn_html);
+                            that.removeAttr('disabled').html(btn_html);
                         }
                     })
                 }else{
