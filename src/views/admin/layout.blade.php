@@ -80,9 +80,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="/admin/role">角色选择</a>
-                            <a class="dropdown-item layout_ajax_post" href="/admin/cache">清空缓存</a>
+                            <a class="dropdown-item layout_ajax" href="/admin/cache">清空缓存</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger layout_ajax_post " href="/admin/logout">退出</a>
+                            <a class="dropdown-item text-danger layout_ajax " href="/admin/logout">退出</a>
                         </div>
                     </div>
 
@@ -139,7 +139,7 @@
 
     $(function (){
         iload('/admin/home/index');
-        $('.layout_ajax_post').click(function (e) {
+        $('.layout_ajax').click(function (e) {
             e.preventDefault();
             const that = $(this)
             let confirm_s = that.data('confirm')
@@ -163,7 +163,7 @@
             }
         })
 
-        $("#iload").on('click','.ajax_post',function (e){
+        $("#iload").on('click','.ajax_request',function (e){
             e.preventDefault()
             e.stopPropagation()
             const that = $(this)
@@ -338,7 +338,7 @@
             return false;
         })
 
-        $("#iload").on('click','a.ajax_get,a.page-link',function (e){
+        $("#iload").on('click','a.ajax_html,a.page-link',function (e){
             $('.modal-backdrop').remove()
             e.preventDefault();
             let ajax = $("#iload");
