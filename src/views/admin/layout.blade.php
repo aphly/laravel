@@ -178,29 +178,24 @@
             let load = that.attr('data-load');
             let btn_html = that.html();
             if(url){
-                if(load){
-                    $.ajax({
-                        url,dataType: "json",
-                        beforeSend:function () {
-                            that.attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
-                        },
-                        success: function(res){
+                $.ajax({
+                    url,dataType: "json",
+                    beforeSend:function () {
+                        that.attr('disabled',true).html('<i class="btn_loading app-jiazai uni"></i>');
+                    },
+                    success: function(res){
+                        if(load){
                             iload(load);
-                            alert_msg(res)
-                        },
-                        complete:function(XMLHttpRequest,textStatus){
-                            that.removeAttr('disabled').html(btn_html);
-                        }
-                    })
-                }else{
-                    $.ajax({
-                        url,dataType: "json",
-                        success: function(res){
+                        }else{
                             iload(res.data.redirect);
-                            alert_msg(res)
                         }
-                    })
-                }
+                        alert_msg(res)
+                    },
+                    complete:function(XMLHttpRequest,textStatus){
+                        that.removeAttr('disabled').html(btn_html);
+                    }
+                })
+
             }
         })
 
