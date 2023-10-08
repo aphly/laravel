@@ -7,7 +7,6 @@ use Aphly\Laravel\Exceptions\ApiException;
 use Aphly\Laravel\Libs\Func;
 use Aphly\Laravel\Libs\Seccode;
 use Illuminate\Http\Request;
-use function cookie;
 use function response;
 
 class SeccodeController extends Controller
@@ -16,14 +15,14 @@ class SeccodeController extends Controller
     public function index()
     {
         $seccode = Func::randStr(4,true);
-        $cookie = cookie('seccode', $seccode, 60);
+        session('seccode', $seccode);
         $code = new Seccode();
         $code->code = $seccode;
         $content = $code->display();
         if($code->animator){
-            return response($content,200,['Content-Type' => 'image/gif'])->cookie($cookie);
+            return response($content,200,['Content-Type' => 'image/gif']);
         }else{
-            return response($content,200,['Content-Type' => 'image/png'])->cookie($cookie);
+            return response($content,200,['Content-Type' => 'image/png']);
         }
     }
 

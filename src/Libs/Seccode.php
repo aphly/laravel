@@ -1,8 +1,6 @@
 <?php
 namespace Aphly\Laravel\Libs;
 
-use Illuminate\Support\Facades\Cookie;
-
 class Seccode {
 
 	public $code;
@@ -23,7 +21,7 @@ class Seccode {
 
     public function check($code)
     {
-        $seccode = Cookie::get('seccode');
+        $seccode = session('seccode');
         if($code && strtolower($code)==strtolower($seccode)){
             return true;
         }

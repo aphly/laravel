@@ -17,16 +17,14 @@ class ApiException extends \Exception
 
     private $string;
 
-    private $cookie;
     /**
      * BusinessException constructor.
      *
      * @param array|string $arr
      */
-    public function __construct($arr,$cookie=false)
+    public function __construct($arr)
     {
         parent::__construct();
-        $this->cookie = $cookie;
         if(is_array($arr)){
             $this->code = $arr['code'] ?? 0;
             $this->msg  = $arr['msg'] ?? '';
@@ -43,10 +41,6 @@ class ApiException extends \Exception
         return $this->data;
     }
 
-    public function resCookie(){
-        return $this->res()->cookie($this->cookie);
-    }
-
     public function res(){
         return response()->json([
             'code' => $this->code,
@@ -58,43 +52,22 @@ class ApiException extends \Exception
     public function render(Request $request)
     {
         if($request->expectsJson()) {
-            if($this->cookie){
-                if($this->isArr){
-                    return $this->resCookie();
-                }else{
-                    return response($this->string)->cookie($this->cookie);
-                }
+            if($this->isArr){
+                return $this->res();
             }else{
-                if($this->isArr){
-                    return $this->res();
-                }else{
-                    return response($this->string);
-                }
+                return response($this->string);
             }
         }else{
-            if($this->cookie){
-                if($this->isArr){
-                    if(isset($this->data['redirect'])){
-                        redirect($this->data['redirect'])->cookie($this->cookie)->send();
-                    }else{
-                        return $this->resCookie();
-                    }
+            if($this->isArr){
+                if(isset($this->data['redirect'])){
+                    return redirect($this->data['redirect']);
                 }else{
-                    return response($this->string)->cookie($this->cookie);
+                    return $this->res();
                 }
             }else{
-                if($this->isArr){
-                    if(isset($this->data['redirect'])){
-                        return redirect($this->data['redirect']);
-                    }else{
-                        return $this->res();
-                    }
-                }else{
-                    return response($this->string);
-                }
+                return response($this->string);
             }
         }
-        // $this->cookie = cookie('name', 'value', $minutes);
         //return view('pages.error', ['msg' => $this->message]);
     }
 

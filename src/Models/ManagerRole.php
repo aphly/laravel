@@ -3,7 +3,6 @@
 namespace Aphly\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Cookie;
 
 class ManagerRole extends Model
 {
@@ -23,13 +22,13 @@ class ManagerRole extends Model
 //    public $active_role_id = 0;
 //
 //    function activeRole(){
-//        $active_role_id = Cookie::get('active_role_id');
+//        $active_role_id = session('active_role_id');
 //
 //    }
 //
 //    public function getMenu(): array
 //    {
-//        $active_role_id = Cookie::get('active_role_id');
+//        $active_role_id = session('active_role_id');
 //        $role_ids = self::where([ 'uuid' => Manager::_uuid(),'role_id'=>$active_role_id])->select('role_id')->get()->toArray();
 //        $role_ids = array_column($role_ids,'role_id');
 //        $role_menu = $this->role_menu_cache();
