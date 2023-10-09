@@ -15,7 +15,7 @@ class SeccodeController extends Controller
     public function index()
     {
         $seccode = Func::randStr(4,true);
-        session('seccode', $seccode);
+        session(['seccode'=> $seccode]);
         $code = new Seccode();
         $code->code = $seccode;
         $content = $code->display();
