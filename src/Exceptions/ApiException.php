@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 class ApiException extends \Exception
 {
-    private $data = [];
+    public $data = [];
     /**
      * @var mixed|string
      */
