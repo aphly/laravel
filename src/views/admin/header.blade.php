@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ URL::asset('static/base/css/links.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('static/base/css/jstree.css') }}">
     <script src='{{ URL::asset('static/base/js/jstree.js') }}' type='text/javascript'></script>
+    <link rel="stylesheet" href="{{ URL::asset('static/base/css/video-js.min.css') }}">
+    <script src='{{ URL::asset('static/base/js/video.min.js') }}' type='text/javascript'></script>
 </head>
 <body>
 <style>
