@@ -1,7 +1,7 @@
 **laravel **<br>
 
 环境<br>
-php8.0+<br>
+php8.1+<br>
 
 安装<br>
 `composer require aphly/laravel` <br>
