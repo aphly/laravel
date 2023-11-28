@@ -4,9 +4,9 @@ html,body{min-height: 100%;}
 a:hover,a{text-decoration: none; }
 ul,li,p,dl,dd{padding: 0;margin: 0;}
 input:focus{ outline:none }
-.btn-my_primary{background-color: #92cdb9;border-color: #92cdb9;color:#fff;}
-.btn-my_primary.focus, .btn-my_primary:focus{background-color: #92cdb9;border-color: #92cdb9;box-shadow:none;}
-.btn-my_primary:hover{color:#fff;background: #76bda5;}
+/*.btn-my_primary{background-color: #92cdb9;border-color: #92cdb9;color:#fff;}*/
+/*.btn-my_primary.focus, .btn-my_primary:focus{background-color: #92cdb9;border-color: #92cdb9;box-shadow:none;}*/
+/*.btn-my_primary:hover{color:#fff;background: #76bda5;}*/
 img{max-width: 100%;}
 
 .loading-pointer-inner{ margin: 0 auto;display: flex;justify-content: center;width:200px;height:50px}
