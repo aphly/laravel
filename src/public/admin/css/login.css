@@ -1,0 +1,20 @@
+.login1{width:60%;background:#5e8ee7;color:#fff;height:100%;font-size:34px;font-weight:600;justify-content:center;display:flex;align-items:center}
+.login2{width:40%;background:#f6f8fb}
+.login{height:100%}
+html,body{height:100%;color:#4f5464}
+.login_form{width:80%;margin:0 10%}
+.login_form .form-control{height:50px;line-height:50px}
+.login_title{font-size:36px;line-height:40px;color:#4f5464;margin-bottom:48px;margin-top:80px}
+.login_btn{margin-top:20px}
+.login_btn button{width:100%;height:42px}
+.login_form .form-group{margin-top:24px;margin-bottom:5px}
+.login_hr{width:calc(100% - 30px);margin-left:15px}
+.login_other{margin:16px}
+.login_other .login_hr{position:absolute;width:100%;margin-left:0;border-top:1px solid rgba(0,0,0,.1);top:10px}
+.login_other .login_hrx{background-color:#f6f8fb;display:block;width:60%;position:relative;text-align:center;margin-left:20%}
+.login_form p{margin-bottom:5px}
+
+@media (max-width: 991.98px) {
+    .login1{display: none;}
+    .login2{width: 100%;}
+}

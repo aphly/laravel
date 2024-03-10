@@ -1,0 +1,27 @@
+{
+    "name": "aphly/laravel",
+    "description": "base for laravel",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Aphly\\Laravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aphly",
+            "email": "121099327@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aphly\\Laravel\\BaseServiceProvider"
+            ]
+        }
+    }
+}

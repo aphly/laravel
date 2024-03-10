@@ -1,0 +1,63 @@
+.account_form .title{font-size: 24px;font-weight: 600}
+.account_form label{font-weight: 600;}
+.account_form input{height: 44px;}
+.account_form button{width: 100%;height: 44px;}
+.account_form .alert-warning{color:#dd3545;}
+
+.accountContent{max-width: 500px;margin: 40px auto 10px}
+.accountContent .forget{color:#777;}
+.split-line{margin-top: 15px;}
+.split-line span{color:#777;}
+.split-line a{font-weight: 600;margin-left: 5px;}
+.line-between{display:flex;flex-direction:row;padding:15px 0;}
+.line-between:after,.line-between:before{border-bottom:1px solid #e6e6e6;content:"";flex:1;margin:auto}
+.line-between:before{margin-right:10px}
+.line-between:after{margin-left:10px}
+.text-brand{font-weight: 600;--tw-gradient-from:#1c9dfe;--tw-gradient-to:#023ff4;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to,rgba(28,157,254,0));background-image:linear-gradient(to right,var(--tw-gradient-stops));border:none;color:#fff;margin-top: 15px;}
+.facebook{background: #3b5997;color: #fff;}
+.facebook:hover{color: #fff;}
+.ext_login{padding: 15px 0;}
+.ext_login a{display: block;line-height: 44px;height: 44px;border-radius: 0.25rem;margin-bottom: 15px;font-weight: 600;}
+.ext_icon{position: relative;left: 50px;}
+.google{border: 1px solid #e5e5e5;color: #333;}
+
+.loginBtn:hover{color:#fff;}
+.agree{display: flex;align-items: center;margin-left: 5px;}
+.agree a{margin-left: 5px;}
+.confirmation{margin-top: 20px;}
+.btn.text-brand:hover {color: #fff;}
+
+
+/*credit*/
+.credit1{padding: 20px 0;font-weight: 600;text-align: center;}
+.credit11{font-size: 32px;}
+.credit12{font-size: 26px;}
+.credit12 i{font-size: 26px;position: relative;top: 1px;}
+.credit2{border-radius: 10px;padding: 16px 0;}
+.credit21a{font-weight: 600;font-size: 20px;}
+.credit21a i{font-weight: 600;font-size: 20px;}
+.credit21b{font-size: 12px;font-weight: 600;color: #888888;}
+.credit21,.credit_price{padding: 0 16px;}
+.credit21{padding-bottom: 10px;border-bottom:1px solid #f1f1f1; }
+.credit_price li{padding-bottom: 16px;padding-top: 16px;border-bottom:1px solid #f1f1f1;}
+.credit_price1{font-weight: 600;}
+.credit_price1a{font-size: 20px;}
+.credit_price1a i{font-size: 20px;}
+.credit_price1b{color: #888;}
+.credit_price1c{font-size: 13px;}
+
+.credit2{margin: 20px 0;}
+.userCreditLog li{padding: 16px; border-bottom: 1px solid #f1f1f1;}
+.userCreditLog li .userCreditLog1b{color:#999;}
+.userCreditLog1a{font-weight: 600;}
+.userCreditLog1a{font-size: 18px;}
+.credit2 .pagination{margin-top: 10px;}
+/*credit*/
+
+.account_msg{font-weight: 600;font-size: 18px;margin-top: 40px;}
+.account_msg p{margin-bottom: 20px;}
+.account_msg a{color:var(--a-hover);}
+
+@media (max-width: 1199.98px) {
+
+}
