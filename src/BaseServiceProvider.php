@@ -3,6 +3,7 @@
 namespace Aphly\Laravel;
 
 use Aphly\Laravel\Exceptions\ApiException;
+use Aphly\Laravel\Middleware\Limit;
 use Aphly\Laravel\Middleware\UserAuth;
 use Aphly\Laravel\Providers\ServiceProvider;
 use Aphly\Laravel\Middleware\Cross;
@@ -39,28 +40,29 @@ class BaseServiceProvider extends ServiceProvider
         ]);
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/views', 'laravel');
-        $this->loadViewsFrom(__DIR__.'/views/front', 'laravel-front-default');
+        $this->loadViewsFrom(__DIR__.'/views/front', 'laravel-front-base');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->addRouteMiddleware('managerAuth', ManagerAuth::class);
         $this->addRouteMiddleware('rbac', Rbac::class);
         $this->addRouteMiddleware('cross', Cross::class);
         $this->addRouteMiddleware('userAuth', UserAuth::class);
+        $this->addRouteMiddleware('limit', Limit::class);
 		$this->addDontReport(ApiException::class);
 		//$this->addApiException([[ModelNotFoundException::class,ApiException::class]]);
         $this->addBuilder();
-        Blade::directive('Linclude', function ($view) {
-            $view = str_replace('\'','',$view);
-            if(view::exists($view)){
-                return '<?php echo view(\''.$view.'\'); ?>';
-            }else{
-                $view_new = str_replace(config('base.view_namespace_front'),config('base.view_namespace_front_default'),$view);
-                if(view::exists($view_new)){
-                    return '<?php echo view(\''.$view_new.'\'); ?>';
-                }else{
-                    return '<?php echo view(\''.$view.'\'); ?>';
-                }
-            }
-        });
+//        Blade::directive('Linclude', function ($view) {
+//            $view = str_replace('\'','',$view);
+//            if(view::exists($view)){
+/*                return '<?php echo view(\''.$view.'\'); ?>';*/
+//            }else{
+//                $view_new = str_replace(config('base.view_namespace_front'),config('base.view_namespace_front_default'),$view);
+//                if(view::exists($view_new)){
+/*                    return '<?php echo view(\''.$view_new.'\'); ?>';*/
+//                }else{
+/*                    return '<?php echo view(\''.$view.'\'); ?>';*/
+//                }
+//            }
+//        });
     }
 
 

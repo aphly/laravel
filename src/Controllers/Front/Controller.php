@@ -34,10 +34,10 @@ class Controller extends \Aphly\Laravel\Controllers\Controller
             }
             View::share("dict",(new Dict)->getByKey());
             View::share("links",(new Links)->menu(config('base.link_id')));
-            $paginationTemplate = $this->existView(config('base.view_namespace_front').'::common.pagination');
-            if($paginationTemplate){
-                Paginator::defaultView($paginationTemplate);
-            }
+//            $paginationTemplate = $this->existView(config('base.view_namespace_front').'::common.pagination');
+//            if($paginationTemplate){
+//                Paginator::defaultView($paginationTemplate);
+//            }
             self::$_G['comm_module'] = (new Comm)->moduleClass();
             View::share("comm_module",self::$_G['comm_module']);
             foreach (self::$_G['comm_module'] as $val) {

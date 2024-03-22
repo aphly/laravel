@@ -1,4 +1,4 @@
-@Linclude('laravel-front::common.header')
+@include(config('base.view_namespace_front_blade').'::common.header')
 <section class="pt20" >
     <div class="container d-flex justify-content-center">
         <div class="">
@@ -8,4 +8,4 @@
 </section>
 <script>
 </script>
-@Linclude('laravel-front::common.footer')
+@include(config('base.view_namespace_front_blade').'::common.footer')

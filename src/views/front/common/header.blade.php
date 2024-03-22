@@ -1,4 +1,4 @@
-@Linclude('laravel-front::common.header_common')
+@include(config('base.view_namespace_front_blade').'::common.header_common')
 <link rel="stylesheet" href="{{ URL::asset('static/base/front/css/iconfont.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('static/base/front/css/common.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('static/base/front/css/font.css') }}">

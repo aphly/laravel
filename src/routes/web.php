@@ -27,9 +27,12 @@ Route::middleware(['web'])->group(function () {
         Route::get('seccode/{code}', 'Aphly\Laravel\Controllers\Front\SeccodeController@check');
     });
 
+    //404
+    Route::get('404', 'Aphly\Laravel\Controllers\Front\NotfoundController@index');
+
     //oauth
-    Route::get('oauth/{driver}/callback', 'Aphly\Laravel\Controllers\OAuthController@handleProviderCallback');
-    Route::get('oauth/{driver}', 'Aphly\Laravel\Controllers\OAuthController@redirectToProvider');
+//    Route::get('oauth/{driver}/callback', 'Aphly\Laravel\Controllers\OAuthController@handleProviderCallback');
+//    Route::get('oauth/{driver}', 'Aphly\Laravel\Controllers\OAuthController@redirectToProvider');
 
     Route::get('upload_file/download', 'Aphly\Laravel\Controllers\Admin\UploadFileController@download');
 

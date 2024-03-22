@@ -1,4 +1,4 @@
-@Linclude('laravel-front::common.header')
+@include(config('base.view_namespace_front_blade').'::common.header')
 <link rel="stylesheet" href="{{ URL::asset('static/base/front/css/account.css') }}">
 <section class="container">
     <style>
@@ -7,7 +7,7 @@
         .avatar i{font-size: 100px;}
     </style>
     <div class="account_info">
-        @Linclude('laravel-front::account.left_menu')
+        @include(config('base.view_namespace_front_blade').'::account.left_menu')
         <div class="account-main-section">
             <div class="top-desc d-flex justify-content-between">
                 <h2>Dashboard</h2>
@@ -75,4 +75,4 @@
         }
     }
 </script>
-@Linclude('laravel-front::common.footer')
+@include(config('base.view_namespace_front_blade').'::common.footer')

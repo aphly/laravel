@@ -1,9 +1,9 @@
 <?php
 return [
 //全局
-    'local_host'=>'http://admin.chat.com',
-    'view_namespace_front'=>'laravel-front',
-    'view_namespace_front_default'=>'laravel-front-default',
+    'local_host'=>'http://atown.com',
+    //默认：laravel-front-base
+    'view_namespace_front_blade'=>'laravel-front',
 
     'email'=>'121099327@qq.com',
     'perPage'=>'10',
@@ -20,6 +20,12 @@ return [
     'seccode_register'=>0, //0 1
     'seccode_forget'=>1, //0 1
     'seccode_admin_login'=>0, //0 1
+
+    //限流 10秒最多20次
+    'limit'=>[
+        'maxAttempts'=>20,
+        'decaySeconds'=>10
+    ],
 
 //后端
     //特殊路径

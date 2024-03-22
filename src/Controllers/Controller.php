@@ -28,7 +28,7 @@ class Controller extends \App\Http\Controllers\Controller
         if(View::exists($template)){
             return $template;
         }else{
-            $template = str_replace(config('base.view_namespace_front'),config('base.view_namespace_front_default'),$template);
+            $template = str_replace('laravel-front','laravel-front-base',$template);
             if(View::exists($template)){
                 return $template;
             }else{
